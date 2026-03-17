@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/playwright.config.js",
-    "rootDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests",
+    "configFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/playwright.config.js",
+    "rootDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests",
     "forbidOnly": false,
     "fullyParallel": false,
     "globalSetup": null,
@@ -24,7 +24,7 @@
         },
         "id": "",
         "name": "",
-        "testDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests",
+        "testDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -37,18 +37,18 @@
       [
         "html",
         {
-          "outputFolder": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/reports/html-report",
+          "outputFolder": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/reports/html-report",
           "open": "never"
         }
       ],
       [
         "json",
         {
-          "outputFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/reports/results.json"
+          "outputFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/reports/results.json"
         }
       ],
       [
-        "list",
+        "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/reporters/CustomTTAReporter.js",
         null
       ]
     ],
@@ -95,7 +95,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 4251,
+                      "duration": 4354,
                       "errors": [],
                       "stdout": [
                         {
@@ -104,7 +104,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:52:47.199Z",
+                      "startTime": "2026-03-17T08:19:23.226Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -150,7 +150,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 4670,
+                      "duration": 13855,
                       "errors": [],
                       "stdout": [
                         {
@@ -159,7 +159,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:52:53.181Z",
+                      "startTime": "2026-03-17T08:19:28.217Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -205,7 +205,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 6339,
+                      "duration": 4076,
                       "errors": [],
                       "stdout": [
                         {
@@ -214,7 +214,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:52:57.858Z",
+                      "startTime": "2026-03-17T08:19:42.080Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -260,7 +260,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 4373,
+                      "duration": 5107,
                       "errors": [],
                       "stdout": [
                         {
@@ -269,7 +269,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:04.203Z",
+                      "startTime": "2026-03-17T08:19:46.164Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -315,7 +315,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5095,
+                      "duration": 5754,
                       "errors": [],
                       "stdout": [
                         {
@@ -324,7 +324,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:08.583Z",
+                      "startTime": "2026-03-17T08:19:51.278Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -370,7 +370,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5019,
+                      "duration": 5084,
                       "errors": [],
                       "stdout": [
                         {
@@ -379,7 +379,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:13.685Z",
+                      "startTime": "2026-03-17T08:19:57.040Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -425,12 +425,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 5697,
+                      "duration": 7838,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31",
                         "location": {
-                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
                           "column": 31,
                           "line": 25
                         },
@@ -439,17 +439,17 @@
                       "errors": [
                         {
                           "location": {
-                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
                             "column": 31,
                             "line": 25
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n\n  23 |     // INTENTIONAL FAILURE: Asserting broken image returns 200\n  24 |     // A broken image will return 404, not 200\n> 25 |     expect(response.status()).toBe(200);\n     |                               ^\n  26 |   });\n  27 | });\n  28 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n\n  23 |     // INTENTIONAL FAILURE: Asserting broken image returns 200\n  24 |     // A broken image will return 404, not 200\n> 25 |     expect(response.status()).toBe(200);\n     |                               ^\n  26 |   });\n  27 | });\n  28 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:18.712Z",
+                      "startTime": "2026-03-17T08:20:02.134Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -464,7 +464,7 @@
                         }
                       ],
                       "errorLocation": {
-                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
                         "column": 31,
                         "line": 25
                       }
@@ -511,12 +511,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 9042,
+                      "duration": 9062,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24",
                         "location": {
-                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
                           "column": 24,
                           "line": 19
                         },
@@ -525,17 +525,17 @@
                       "errors": [
                         {
                           "location": {
-                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
                             "column": 24,
                             "line": 19
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n\n  17 |     // INTENTIONAL FAILURE: Asserting wrong title\n  18 |     // The actual title is \"The Internet\", not \"Wrong Title That Does Not Exist\"\n> 19 |     await expect(page).toHaveTitle('Wrong Title That Does Not Exist');\n     |                        ^\n  20 |   });\n  21 | });\n  22 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n\n  17 |     // INTENTIONAL FAILURE: Asserting wrong title\n  18 |     // The actual title is \"The Internet\", not \"Wrong Title That Does Not Exist\"\n> 19 |     await expect(page).toHaveTitle('Wrong Title That Does Not Exist');\n     |                        ^\n  20 |   });\n  21 | });\n  22 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:24.971Z",
+                      "startTime": "2026-03-17T08:20:10.484Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -550,7 +550,7 @@
                         }
                       ],
                       "errorLocation": {
-                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
                         "column": 24,
                         "line": 19
                       }
@@ -597,12 +597,12 @@
                       "workerIndex": 2,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 5456,
+                      "duration": 7729,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27",
                         "location": {
-                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
                           "column": 27,
                           "line": 23
                         },
@@ -611,17 +611,17 @@
                       "errors": [
                         {
                           "location": {
-                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
                             "column": 27,
                             "line": 23
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n\n  21 |     // 3. We set timeout to 1ms which is impossibly short\n  22 |     const element = page.locator('#non-existent-element-that-will-never-appear');\n> 23 |     await expect(element).toBeVisible({ timeout: 1 });\n     |                           ^\n  24 |   });\n  25 | });\n  26 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n\n  21 |     // 3. We set timeout to 1ms which is impossibly short\n  22 |     const element = page.locator('#non-existent-element-that-will-never-appear');\n> 23 |     await expect(element).toBeVisible({ timeout: 1 });\n     |                           ^\n  24 |   });\n  25 | });\n  26 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:35.036Z",
+                      "startTime": "2026-03-17T08:20:20.447Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -636,7 +636,7 @@
                         }
                       ],
                       "errorLocation": {
-                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
                         "column": 27,
                         "line": 23
                       }
@@ -683,7 +683,7 @@
                       "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 4042,
+                      "duration": 4253,
                       "errors": [],
                       "stdout": [
                         {
@@ -692,7 +692,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-17T07:53:41.379Z",
+                      "startTime": "2026-03-17T08:20:28.976Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -712,8 +712,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-17T07:52:46.661Z",
-    "duration": 59129.25,
+    "startTime": "2026-03-17T08:19:22.708Z",
+    "duration": 70871.076,
     "expected": 7,
     "skipped": 0,
     "unexpected": 3,

@@ -18,6 +18,6 @@ module.exports = defineConfig({
   reporter: [
     ['html', { outputFolder: path.resolve(__dirname, 'stlc_project/reports/html-report'), open: 'never' }],
     ['json', { outputFile: path.resolve(__dirname, 'stlc_project/reports/results.json') }],
-    ['list'],
+    ['./stlc_project/reporters/CustomTTAReporter.js'],
   ],
 });
