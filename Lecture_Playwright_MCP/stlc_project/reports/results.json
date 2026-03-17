@@ -1,0 +1,722 @@
+{
+  "config": {
+    "configFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/playwright.config.js",
+    "rootDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/promode/Documents/LearningPlaywrightBatch/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/reports/html-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/reports/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "01_homepage.spec.js",
+      "file": "01_homepage.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-001: Homepage",
+          "file": "01_homepage.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load homepage with correct title and heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4251,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-001: Homepage loaded successfully\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:52:47.199Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a9c38032fcdd49efb25f-6738f56ef4e1db18ff72",
+              "file": "01_homepage.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02_navigation.spec.js",
+      "file": "02_navigation.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-002: Navigation",
+          "file": "02_navigation.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should navigate to Form Authentication page via link",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4670,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-002: Navigation to login page successful\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:52:53.181Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b0ae91ac0f1843e9285f-a5d7cbb7a6df862fb9c9",
+              "file": "02_navigation.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03_search.spec.js",
+      "file": "03_search.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-003: Input Fields",
+          "file": "03_search.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should accept text input in number field",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6339,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-003: Input field accepted text successfully\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:52:57.858Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fbbdaa282270c3e8154f-e3a1a43ab2ef308a3614",
+              "file": "03_search.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04_form_submit.spec.js",
+      "file": "04_form_submit.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-004: Form Authentication",
+          "file": "04_form_submit.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display login form with all required fields",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4373,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-004: Login form has all required fields\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:04.203Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f1b236f66ae8b339482-3d2b597e5b98cf96080c",
+              "file": "04_form_submit.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05_login_valid.spec.js",
+      "file": "05_login_valid.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-005: Valid Login",
+          "file": "05_login_valid.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should login successfully with valid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5095,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-005: Valid login successful\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:08.583Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7ee7434fd0271fc7d52b-493f4cc9ef0059b544eb",
+              "file": "05_login_valid.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06_login_invalid.spec.js",
+      "file": "06_login_invalid.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-006: Invalid Login",
+          "file": "06_login_invalid.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should show error message with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5019,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-006: Invalid login shows error correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:13.685Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b37861f2500d1da045dc-d3e0b71b31e8f2f9ae02",
+              "file": "06_login_invalid.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07_broken_link.spec.js",
+      "file": "07_broken_link.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-007: Broken Link Detection [EXPECTED FAIL]",
+          "file": "07_broken_link.spec.js",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should verify broken image returns 200 status",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5697,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31",
+                        "location": {
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                          "column": 31,
+                          "line": 25
+                        },
+                        "snippet": "  23 |     // INTENTIONAL FAILURE: Asserting broken image returns 200\n  24 |     // A broken image will return 404, not 200\n> 25 |     expect(response.status()).toBe(200);\n     |                               ^\n  26 |   });\n  27 | });\n  28 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                            "column": 31,
+                            "line": 25
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m404\u001b[39m\n\n  23 |     // INTENTIONAL FAILURE: Asserting broken image returns 200\n  24 |     // A broken image will return 404, not 200\n> 25 |     expect(response.status()).toBe(200);\n     |                               ^\n  26 |   });\n  27 | });\n  28 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js:25:31"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:18.712Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/07_broken_link-TC-007-Brok-f4c04-en-image-returns-200-status/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/07_broken_link-TC-007-Brok-f4c04-en-image-returns-200-status/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/07_broken_link.spec.js",
+                        "column": 31,
+                        "line": 25
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "658c241a85ef0046aded-5baee75c5c439c15ad04",
+              "file": "07_broken_link.spec.js",
+              "line": 13,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08_wrong_title.spec.js",
+      "file": "08_wrong_title.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-008: Page Title Verification [EXPECTED FAIL]",
+          "file": "08_wrong_title.spec.js",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should have correct page title",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 9042,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24",
+                        "location": {
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                          "column": 24,
+                          "line": 19
+                        },
+                        "snippet": "  17 |     // INTENTIONAL FAILURE: Asserting wrong title\n  18 |     // The actual title is \"The Internet\", not \"Wrong Title That Does Not Exist\"\n> 19 |     await expect(page).toHaveTitle('Wrong Title That Does Not Exist');\n     |                        ^\n  20 |   });\n  21 | });\n  22 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                            "column": 24,
+                            "line": 19
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWrong Title That Does Not Exis\u001b[27mt\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mThe Interne\u001b[27mt\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 × unexpected value \"The Internet\"\u001b[22m\n\n\n  17 |     // INTENTIONAL FAILURE: Asserting wrong title\n  18 |     // The actual title is \"The Internet\", not \"Wrong Title That Does Not Exist\"\n> 19 |     await expect(page).toHaveTitle('Wrong Title That Does Not Exist');\n     |                        ^\n  20 |   });\n  21 | });\n  22 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js:19:24"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:24.971Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/08_wrong_title-TC-008-Page-d8e4a-uld-have-correct-page-title/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/08_wrong_title-TC-008-Page-d8e4a-uld-have-correct-page-title/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/08_wrong_title.spec.js",
+                        "column": 24,
+                        "line": 19
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d9bc7cd25e0664823568-dcd2ed059aabde063169",
+              "file": "08_wrong_title.spec.js",
+              "line": 14,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09_timeout_page.spec.js",
+      "file": "09_timeout_page.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-009: Timeout Handling [EXPECTED FAIL]",
+          "file": "09_timeout_page.spec.js",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should find element within timeout",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5456,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27",
+                        "location": {
+                          "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                          "column": 27,
+                          "line": 23
+                        },
+                        "snippet": "  21 |     // 3. We set timeout to 1ms which is impossibly short\n  22 |     const element = page.locator('#non-existent-element-that-will-never-appear');\n> 23 |     await expect(element).toBeVisible({ timeout: 1 });\n     |                           ^\n  24 |   });\n  25 | });\n  26 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                            "column": 27,
+                            "line": 23
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#non-existent-element-that-will-never-appear')\nExpected: visible\nTimeout: 1ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 1ms\u001b[22m\n\u001b[2m  - waiting for locator('#non-existent-element-that-will-never-appear')\u001b[22m\n\n\n  21 |     // 3. We set timeout to 1ms which is impossibly short\n  22 |     const element = page.locator('#non-existent-element-that-will-never-appear');\n> 23 |     await expect(element).toBeVisible({ timeout: 1 });\n     |                           ^\n  24 |   });\n  25 | });\n  26 |\n    at /Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js:23:27"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:35.036Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/09_timeout_page-TC-009-Tim-b5440-find-element-within-timeout/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/promode/Documents/LearningPlaywrightBatch/test-results/09_timeout_page-TC-009-Tim-b5440-find-element-within-timeout/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/promode/Documents/LearningPlaywrightBatch/Lecture_03_Playwright_MCP/stlc_project/tests/09_timeout_page.spec.js",
+                        "column": 27,
+                        "line": 23
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "950d7768cfe9d9536122-fee0f6d250e2070e879f",
+              "file": "09_timeout_page.spec.js",
+              "line": 14,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10_visual_check.spec.js",
+      "file": "10_visual_check.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC-010: Visual Elements",
+          "file": "10_visual_check.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should have all key visual elements on homepage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4042,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "TC-010: All visual elements present (44 links found)\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-17T07:53:41.379Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "72e2e1f5439a3ce6d07d-2889933c4784a7b7b853",
+              "file": "10_visual_check.spec.js",
+              "line": 4,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-03-17T07:52:46.661Z",
+    "duration": 59129.25,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
