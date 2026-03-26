@@ -11,7 +11,7 @@ console.log(user.name);
 console.log(user["age"]);
 
 // Dynamic property access
-const key = "email";
+const key = "age";
 console.log(user[key]);
 
 

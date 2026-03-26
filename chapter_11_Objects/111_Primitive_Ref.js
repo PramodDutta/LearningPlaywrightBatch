@@ -4,6 +4,13 @@ let a = 10;
 let b = a;
 b = 99;
 console.log(a);
+console.log(b);
+a = 90;
+console.log(a);
+console.log(b);
+
+
+console.log("-----")
 
 // Objects — copied by REFERENCE , call by ref. 
 // Reference - object, array, function

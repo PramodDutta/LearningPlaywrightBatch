@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VWO Invalid Login Test Report</title>
+    <style>
+        :root {
+            --bg: #f6f8fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --pass: #047857;
+            --known: #b45309;
+            --border: #e5e7eb;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 100%);
+            color: var(--text);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        p {
+            margin: 8px 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+        }
+
+        .status.pass {
+            color: #ecfdf5;
+            background: var(--pass);
+        }
+
+        .status.known {
+            color: #fffbeb;
+            background: var(--known);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            width: 240px;
+            color: #374151;
+            font-weight: 700;
+            background: #f9fafb;
+        }
+
+        .error-box {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            font-weight: 600;
+        }
+
+        .evidence {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        code {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="card">
+            <h1>Password Fill Test Case Report</h1>
+            <p>Application: app.vwo.com</p>
+            <p>Scenario: Invalid username + invalid password + submit</p>
+            <p>
+                <span class="status pass">PASS</span>
+            </p>
+        </section>
+
+        <section class="card">
+            <table>
+                <tr>
+                    <th>Test Case ID</th>
+                    <td>VWO-LOGIN-NEG-001</td>
+                </tr>
+                <tr>
+                    <th>Executed Via</th>
+                    <td>Playwright CLI</td>
+                </tr>
+                <tr>
+                    <th>Execution Timestamp (UTC)</th>
+                    <td>2026-03-25T12:55:49.195Z</td>
+                </tr>
+                <tr>
+                    <th>Target URL</th>
+                    <td>https://app.vwo.com/#/login</td>
+                </tr>
+                <tr>
+                    <th>Entered Username</th>
+                    <td>invalid.user@example.com</td>
+                </tr>
+                <tr>
+                    <th>Entered Password</th>
+                    <td>invalid-password-123</td>
+                </tr>
+                <tr>
+                    <th>Observed Error Message</th>
+                    <td>Your email, password, IP address or location did not match</td>
+                </tr>
+                <tr>
+                    <th>Verification Rule</th>
+                    <td>If any login error message appears after invalid credentials, mark as PASS. If no error appears
+                        or behavior is different, mark as KNOWN_ERROR.</td>
+                </tr>
+                <tr>
+                    <th>Result</th>
+                    <td>PASS (error message displayed and verified)</td>
+                </tr>
+                <tr>
+                    <th>Automation Script</th>
+                    <td><code>vwo-invalid-login-run.js</code></td>
+                </tr>
+            </table>
+
+            <div class="error-box">
+                Verified error text: "Your email, password, IP address or location did not match"
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Evidence Screenshot</h2>
+            <p>Captured right after clicking submit with invalid credentials.</p>
+            <img class="evidence" src="vwo-invalid-login.png" alt="VWO invalid login evidence" />
+        </section>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+    "step": "invalid-login-submit",
+    "hasError": true,
+    "knownError": false,
+    "status": "PASS",
+    "message": "Your email, password, IP address or location did not match",
+    "allCandidateMessages": [
+        "Your email, password, IP address or location did not match",
+        "Email address Invalid email",
+        "Invalid email"
+    ],
+    "url": "https://app.vwo.com/#/login",
+    "title": "Login - VWO",
+    "timestamp": "2026-03-25T12:55:49.195Z"
+}

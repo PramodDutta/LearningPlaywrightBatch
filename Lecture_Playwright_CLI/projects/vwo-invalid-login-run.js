@@ -1,0 +1,118 @@
+(async page => {
+    const findVisible = async selectors => {
+        for (const sel of selectors) {
+            const loc = page.locator(sel).first();
+            if ((await loc.count()) > 0) {
+                const visible = await loc.isVisible().catch(() => false);
+                if (visible) return loc;
+            }
+        }
+        return null;
+    };
+
+    const usernameSelectors = [
+        '#login-username',
+        'input[name="username"]',
+        'input[type="email"]',
+        'input[placeholder*="Email"]',
+        'input[placeholder*="username" i]'
+    ];
+
+    const passwordSelectors = [
+        '#login-password',
+        'input[name="password"]',
+        'input[type="password"]'
+    ];
+
+    const submitSelectors = [
+        '#js-login-btn',
+        'button[type="submit"]',
+        'button:has-text("Sign in")',
+        'button:has-text("Login")'
+    ];
+
+    const username = await findVisible(usernameSelectors);
+    const password = await findVisible(passwordSelectors);
+    const submit = await findVisible(submitSelectors);
+
+    if (!username || !password || !submit) {
+        return {
+            step: 'element-discovery',
+            hasError: false,
+            knownError: true,
+            status: 'KNOWN_ERROR',
+            message: 'Known error: Unable to locate one or more login elements',
+            url: page.url(),
+            title: await page.title(),
+            timestamp: new Date().toISOString()
+        };
+    }
+
+    await username.fill('invalid.user@example.com');
+    await password.fill('invalid-password-123');
+    await submit.click();
+    await page.waitForTimeout(3500);
+
+    const knownLoginErrorSelectors = [
+        '.notification-box-description',
+        '.notification-box',
+        '.error-message',
+        '.alert-danger',
+        '.text-danger',
+        '[role="alert"]',
+        '.login-error-message'
+    ];
+
+    let directMessage = '';
+    for (const sel of knownLoginErrorSelectors) {
+        const loc = page.locator(sel).first();
+        const exists = (await loc.count()) > 0;
+        const visible = exists ? await loc.isVisible().catch(() => false) : false;
+        if (exists && visible) {
+            const txt = ((await loc.textContent()) || '').replace(/\s+/g, ' ').trim();
+            if (txt) {
+                directMessage = txt;
+                break;
+            }
+        }
+    }
+
+    const extracted = await page.evaluate(() => {
+        const keywords = ['invalid', 'incorrect', 'wrong', 'failed', 'error', 'not match', 'try again'];
+        const isVisible = el => {
+            const style = window.getComputedStyle(el);
+            const rect = el.getBoundingClientRect();
+            return style.visibility !== 'hidden' && style.display !== 'none' && rect.width > 0 && rect.height > 0;
+        };
+
+        const messages = [];
+        for (const el of document.querySelectorAll('body *')) {
+            if (!isVisible(el)) continue;
+            const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+            if (!text || text.length < 6 || text.length > 220) continue;
+            const lower = text.toLowerCase();
+            if (keywords.some(k => lower.includes(k))) {
+                messages.push(text);
+            }
+        }
+
+        return [...new Set(messages)].slice(0, 10);
+    });
+
+    const observedMessage = directMessage || extracted[0] || '';
+    const hasError = observedMessage.length > 0;
+
+    return {
+        step: 'invalid-login-submit',
+        hasError,
+        knownError: !hasError,
+        status: hasError ? 'PASS' : 'KNOWN_ERROR',
+        message: hasError
+            ? observedMessage
+            : 'Known error: No error message shown after invalid username/password submit',
+        allCandidateMessages: extracted,
+        url: page.url(),
+        title: await page.title(),
+        timestamp: new Date().toISOString()
+    };
+})
