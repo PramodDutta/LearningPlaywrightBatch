@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright CLI - Complete Tutorial | TheTestingAcademy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --primary-light: #40916c;
+            --accent: #1b4332;
+            --bg: #f6f8f7;
+            --card-bg: #ffffff;
+            --card-border: #e2e8e5;
+            --text: #1a2e23;
+            --text-muted: #5c6e63;
+            --code-bg: #f1f5f3;
+            --success: #2d6a4f;
+            --warning: #b5830a;
+            --info: #2d6a4f;
+            --danger: #c1121f;
+            --green: #00c896;
+            --sidebar-bg: #f0f4f2;
+            --sidebar-w: 280px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            width: var(--sidebar-w);
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--card-border);
+            z-index: 1000;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+        .sidebar-header {
+            padding: 1.5rem 1.25rem 1.2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .sidebar-badge {
+            display: inline-block;
+            background: var(--green);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.6rem;
+        }
+
+        .sidebar-header .logo {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .sidebar-header .logo-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+            font-weight: 400;
+        }
+
+        /* Progress */
+        .sidebar-progress {
+            padding: 0.8rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-progress-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .sidebar-progress-pct {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .sidebar-progress-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--card-border);
+            border-radius: 3px;
+            margin-top: 0.4rem;
+        }
+
+        .sidebar-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--green);
+            transition: width 0.4s ease;
+        }
+
+        /* Nav groups */
+        .nav-group {
+            padding: 0.6rem 0 0.2rem;
+        }
+
+        .nav-section-label {
+            padding: 0.5rem 1.25rem 0.35rem;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: #8fa69a;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-links li { margin: 0; }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1.25rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: rgba(45, 106, 79, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--green);
+            font-weight: 600;
+            background: rgba(0, 200, 150, 0.06);
+            border-left-color: var(--green);
+        }
+
+        .nav-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all 0.15s;
+        }
+
+        .nav-links a.active .nav-num {
+            background: var(--green);
+            color: #000;
+        }
+
+        .nav-links a:hover .nav-num {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Sidebar footer */
+        .sidebar-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        .sidebar-footer .author-name {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .sidebar-footer .author-links {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .sidebar-footer a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            margin-left: var(--sidebar-w);
+            min-height: 100vh;
+        }
+
+        /* Breadcrumb bar */
+        .breadcrumb-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(246, 248, 247, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0.65rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .breadcrumb {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb .bc-separator { margin: 0 0.4rem; color: var(--card-border); }
+        .breadcrumb .bc-current { color: var(--text); font-weight: 600; }
+
+        .breadcrumb-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-nav button {
+            padding: 0.35rem 0.9rem;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+
+        .breadcrumb-nav button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .breadcrumb-nav .btn-next {
+            background: var(--green);
+            border-color: var(--green);
+            color: #000;
+        }
+
+        .breadcrumb-nav .btn-next:hover {
+            background: #00b386;
+            border-color: #00b386;
+        }
+
+        /* Mobile toggle */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 0.75rem; left: 0.75rem;
+            z-index: 1100;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            border-radius: 8px;
+            width: 38px; height: 38px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin: 0;
+            padding: 3rem 2.5rem 2.5rem;
+            text-align: center;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--green);
+        }
+
+        .hero .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Stats row */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .stat-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .hero-stat .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+
+        .badge-green { background: rgba(0, 200, 150, 0.12); color: #00a67d; border: 1px solid rgba(0, 200, 150, 0.25); }
+        .badge-blue { background: rgba(45, 106, 79, 0.1); color: var(--primary); border: 1px solid rgba(45, 106, 79, 0.2); }
+        .badge-orange { background: rgba(181, 131, 10, 0.1); color: var(--warning); border: 1px solid rgba(181, 131, 10, 0.2); }
+        .badge-red { background: rgba(193, 18, 31, 0.1); color: var(--danger); border: 1px solid rgba(193, 18, 31, 0.2); }
+
+        /* Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            border-color: #c0d8cc;
+            box-shadow: 0 2px 12px rgba(45, 106, 79, 0.06);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #fafcfb;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Cascadia Code', 'SF Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.65;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Cascadia Code', 'SF Mono', monospace;
+            font-size: 0.82rem;
+            background: rgba(0, 200, 150, 0.08);
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+        }
+
+        pre code { background: none; padding: 0; }
+
+        .cmd { color: #2d6a4f; }
+        .flag { color: #b5830a; }
+        .str { color: #b5830a; }
+        .comment { color: #8fa69a; }
+        .kw { color: #40916c; }
+        .fn { color: #2d6a4f; }
+        .num { color: #c47f17; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.7rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #f4f7f5;
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .comparison-table th { padding: 0.85rem 1rem; }
+        .comparison-table td { padding: 0.75rem 1rem; }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9fbfa;
+        }
+
+        /* Step List */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step;
+            padding: 1rem 1rem 1rem 3.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            border-left: 2px solid var(--card-border);
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: -14px; top: 1rem;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Quiz */
+        .quiz-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-item h4 { margin-bottom: 0.8rem; color: var(--primary); font-weight: 700; }
+
+        .quiz-options { list-style: none; padding: 0; }
+
+        .quiz-options li {
+            padding: 0.55rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid var(--card-border);
+            transition: all 0.15s;
+            font-size: 0.9rem;
+        }
+
+        .quiz-options li:hover {
+            border-color: var(--green);
+            background: rgba(0, 200, 150, 0.06);
+        }
+
+        .quiz-options li.correct {
+            border-color: var(--green);
+            background: rgba(0, 200, 150, 0.1);
+        }
+
+        .quiz-options li.wrong {
+            border-color: var(--danger);
+            background: rgba(193, 18, 31, 0.06);
+        }
+
+        .quiz-answer {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            background: rgba(0, 200, 150, 0.06);
+            border: 1px solid rgba(0, 200, 150, 0.15);
+            font-size: 0.88rem;
+        }
+
+        /* Accordion */
+        .accordion {
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            background: var(--card-bg);
+        }
+
+        .accordion-header {
+            padding: 0.9rem 1.2rem;
+            background: var(--card-bg);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.15s;
+        }
+
+        .accordion-header:hover { background: #f4f7f5; }
+
+        .accordion-header::after { content: '+'; font-size: 1.1rem; color: var(--text-muted); font-weight: 400; }
+        .accordion.open .accordion-header::after { content: '\2212'; }
+
+        .accordion-body {
+            display: none;
+            padding: 1.2rem;
+            border-top: 1px solid var(--card-border);
+            background: #fafcfb;
+        }
+
+        .accordion.open .accordion-body { display: block; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.65rem 1.3rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Alert boxes */
+        .alert {
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 0.88rem;
+        }
+
+        .alert-info {
+            background: rgba(0, 200, 150, 0.06);
+            border: 1px solid rgba(0, 200, 150, 0.18);
+            color: #1a6b52;
+        }
+
+        .alert-warning {
+            background: rgba(181, 131, 10, 0.06);
+            border: 1px solid rgba(181, 131, 10, 0.2);
+            color: #8a6508;
+        }
+
+        .alert-success {
+            background: rgba(0, 200, 150, 0.06);
+            border: 1px solid rgba(0, 200, 150, 0.18);
+            color: #1a6b52;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            height: 3px;
+            background: var(--card-border);
+            border-radius: 3px;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--green);
+        }
+
+        /* Architecture Diagram */
+        .diagram {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            font-family: 'Fira Code', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: var(--primary);
+        }
+
+        /* Flow */
+        .flow-steps {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            padding: 0.7rem 1.1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            font-size: 1.3rem;
+            color: var(--green);
+            padding: 0 0.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 2.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer a { color: var(--green); text-decoration: none; font-weight: 600; }
+
+        /* Numbered heading */
+        .num-heading {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.7rem;
+            vertical-align: middle;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-toggle { display: flex; }
+            .main-content { margin-left: 0; }
+            .breadcrumb-bar { padding: 0.65rem 1rem 0.65rem 3.5rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .container { padding: 0 1.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .card-grid-3 { grid-template-columns: 1fr; }
+            .flow-steps { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .footer { margin-left: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Mobile Toggle -->
+<button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-badge">Complete Guide</div>
+        <div class="logo">Playwright CLI</div>
+        <div class="logo-sub">Tutorial &middot; QA / SDET</div>
+    </div>
+
+    <div class="sidebar-progress">
+        <div style="width:100%">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="sidebar-progress-label">Course Progress</span>
+                <span class="sidebar-progress-pct" id="progressPct">0%</span>
+            </div>
+            <div class="sidebar-progress-bar">
+                <div class="sidebar-progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-section-label">Getting Started</div>
+        <ul class="nav-links">
+            <li><a href="#overview"><span class="nav-num">0</span> Course Overview</a></li>
+            <li><a href="#two-clis"><span class="nav-num">1</span> Two CLIs Explained</a></li>
+            <li><a href="#installation"><span class="nav-num">2</span> Setup & Installation</a></li>
+        </ul>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-section-label">Core Concepts</div>
+        <ul class="nav-links">
+            <li><a href="#commands"><span class="nav-num">3</span> Commands & Flags</a></li>
+            <li><a href="#codegen"><span class="nav-num">4</span> Codegen Recording</a></li>
+            <li><a href="#mcp-vs-cli"><span class="nav-num">5</span> MCP vs CLI</a></li>
+            <li><a href="#ide-integration"><span class="nav-num">6</span> IDE Integration</a></li>
+        </ul>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-section-label">Hands-On Projects</div>
+        <ul class="nav-links">
+            <li><a href="#project1"><span class="nav-num">7</span> VWO Login</a></li>
+            <li><a href="#project2"><span class="nav-num">8</span> E2E Test Suite</a></li>
+            <li><a href="#project3"><span class="nav-num">9</span> AI Agent + CLI</a></li>
+        </ul>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-section-label">Practice & Assess</div>
+        <ul class="nav-links">
+            <li><a href="#exercises"><span class="nav-num">10</span> 10 Exercises</a></li>
+            <li><a href="#quiz"><span class="nav-num">11</span> Quiz</a></li>
+            <li><a href="#interview"><span class="nav-num">12</span> Interview Q&A</a></li>
+            <li><a href="#skill"><span class="nav-num">13</span> Skill File</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="author-name">Pramod Dutta</div>
+        <div class="author-links"><a href="https://thetestingacademy.com">TheTestingAcademy</a> &middot; <a href="https://github.com/PramodDutta">GitHub</a></div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+
+<!-- Breadcrumb Bar -->
+<div class="breadcrumb-bar">
+    <div class="breadcrumb">
+        Playwright CLI <span class="bc-separator">&#8250;</span> <span class="bc-current" id="bcCurrent">Course Overview</span>
+    </div>
+    <div class="breadcrumb-nav">
+        <button id="btnPrev" onclick="navigatePrev()">&#8592; Prev</button>
+        <button id="btnNext" class="btn-next" onclick="navigateNext()">Next &#8594;</button>
+    </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>Playwright CLI</h1>
+    <p class="subtitle">The Complete Guide for QA Engineers - From Installation to Mastery. Learn the standard CLI, the new @playwright/cli for AI agents, and how they compare to MCP.</p>
+    <div>
+        <span class="badge badge-green">Beginner Friendly</span>
+        <span class="badge badge-blue">Hands-On Projects</span>
+        <span class="badge badge-orange">AI Agent Integration</span>
+        <span class="badge badge-red">Interview Ready</span>
+    </div>
+</section>
+
+<div class="container">
+
+    <!-- TOC is now the left sidebar -->
+
+    <!-- Section 1: Overview -->
+    <section class="section" id="overview">
+        <h2 class="section-title"><span class="num-heading">1</span> What is Playwright CLI?</h2>
+        <p class="section-subtitle">The command-line interface that powers Playwright testing workflows</p>
+
+        <div class="card">
+            <p>Playwright CLI is the command-line toolset for Microsoft Playwright - the modern browser automation framework. It lets you <strong>run tests</strong>, <strong>record tests via codegen</strong>, <strong>debug with inspector</strong>, <strong>view traces</strong>, <strong>manage browsers</strong>, and <strong>generate reports</strong> - all from your terminal.</p>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+                <strong>Key Fact:</strong> As of 2026, there are TWO Playwright CLI tools. The standard <code>npx playwright</code> that ships with @playwright/test, and the new <code>@playwright/cli</code> package built specifically for AI coding agents.
+            </div>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Why QA Engineers Need Playwright CLI</h3>
+        <div class="card-grid-3">
+            <div class="card">
+                <h3>Speed</h3>
+                <p>Run tests, filter by grep, retry failures, and shard across machines - all from a single terminal command. No GUI needed.</p>
+            </div>
+            <div class="card">
+                <h3>Codegen</h3>
+                <p>Record browser interactions and auto-generate test scripts in JS, TS, Python, Java, or C#. Fastest way to bootstrap tests.</p>
+            </div>
+            <div class="card">
+                <h3>CI/CD Native</h3>
+                <p>CLI commands integrate directly into GitHub Actions, Jenkins, GitLab CI. No special plugins required.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Two CLIs -->
+    <section class="section" id="two-clis">
+        <h2 class="section-title"><span class="num-heading">2</span> Two CLIs - Standard vs @playwright/cli</h2>
+        <p class="section-subtitle">Understanding the two different tools and when to use each</p>
+
+        <div class="card-grid">
+            <div class="card" style="border-color: #2d6a4f;">
+                <h3 style="color: #2d6a4f;">Standard CLI (npx playwright)</h3>
+                <p><strong>Purpose:</strong> Running test suites, codegen, debugging, reports</p>
+                <p><strong>Package:</strong> Ships with <code>@playwright/test</code></p>
+                <p><strong>Best for:</strong> Traditional QA workflows, CI/CD pipelines</p>
+                <pre><span class="comment"># Installation</span>
+npm init playwright@latest
+npx playwright install
+
+<span class="comment"># Common commands</span>
+npx playwright test
+npx playwright codegen https://example.com
+npx playwright show-report
+npx playwright test --debug</pre>
+            </div>
+
+            <div class="card" style="border-color: #40916c;">
+                <h3 style="color: #40916c;">New @playwright/cli (AI Agent CLI)</h3>
+                <p><strong>Purpose:</strong> Browser automation for AI coding agents</p>
+                <p><strong>Package:</strong> Separate <code>@playwright/cli</code> package</p>
+                <p><strong>Best for:</strong> Claude Code, Cursor, Copilot, Windsurf integration</p>
+                <pre><span class="comment"># Installation</span>
+npm install -g @playwright/cli@latest
+playwright-cli install
+playwright-cli install --skills
+
+<span class="comment"># Common commands</span>
+playwright-cli open https://example.com
+playwright-cli snapshot
+playwright-cli click e15
+playwright-cli fill e22 "hello"</pre>
+            </div>
+        </div>
+
+        <div class="diagram" style="margin-top: 2rem;">
++----------------------------------+     +----------------------------------+
+|       Standard Playwright CLI     |     |     @playwright/cli (New)        |
+|----------------------------------|     |----------------------------------|
+| npx playwright test              |     | playwright-cli open URL          |
+| npx playwright codegen           |     | playwright-cli snapshot          |
+| npx playwright show-report       |     | playwright-cli click ref         |
+| npx playwright show-trace        |     | playwright-cli fill ref "text"   |
+| npx playwright install           |     | playwright-cli screenshot        |
+|                                  |     |                                  |
+| Test Runner + Codegen            |     | Interactive Browser Control      |
+| CI/CD Focused                    |     | AI Agent Focused                 |
+| One-shot execution               |     | Persistent daemon sessions       |
++----------------------------------+     +----------------------------------+
+        </div>
+    </section>
+
+    <!-- Section 3: Installation -->
+    <section class="section" id="installation">
+        <h2 class="section-title"><span class="num-heading">3</span> Installation Guide</h2>
+        <p class="section-subtitle">Step-by-step setup for both CLIs</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="install-standard">Standard CLI</button>
+            <button class="tab-btn" data-tab="install-new">@playwright/cli</button>
+            <button class="tab-btn" data-tab="install-both">Full Setup (Both)</button>
+        </div>
+
+        <div class="tab-content active" id="install-standard">
+            <h3>Standard Playwright CLI</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Initialize a new Playwright project</strong>
+                    <pre>npm init playwright@latest</pre>
+                    <p>This creates <code>playwright.config.ts</code>, sample tests, and a GitHub Actions workflow.</p>
+                </li>
+                <li>
+                    <strong>Install browsers</strong>
+                    <pre><span class="comment"># Install all browsers</span>
+npx playwright install
+
+<span class="comment"># Install with OS dependencies (for CI)</span>
+npx playwright install --with-deps
+
+<span class="comment"># Install only Chromium</span>
+npx playwright install chromium</pre>
+                </li>
+                <li>
+                    <strong>Verify installation</strong>
+                    <pre>npx playwright --version
+npx playwright test --list</pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="tab-content" id="install-new">
+            <h3>@playwright/cli for AI Agents</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Install globally</strong>
+                    <pre>npm install -g @playwright/cli@latest</pre>
+                </li>
+                <li>
+                    <strong>Install browser binaries</strong>
+                    <pre>playwright-cli install</pre>
+                </li>
+                <li>
+                    <strong>Install Skills (for AI agent discovery)</strong>
+                    <pre>playwright-cli install --skills</pre>
+                    <p>This creates <code>.claude/skills/playwright-cli/SKILL.md</code> for automatic discovery by Claude Code and compatible agents.</p>
+                </li>
+                <li>
+                    <strong>Verify</strong>
+                    <pre>playwright-cli --version
+playwright-cli open https://example.com</pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="tab-content" id="install-both">
+            <h3>Full Setup Script (Both CLIs)</h3>
+            <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># 1. Standard Playwright</span>
+npm init playwright@latest
+npx playwright install --with-deps
+
+<span class="comment"># 2. New @playwright/cli</span>
+npm install -g @playwright/cli@latest
+playwright-cli install
+playwright-cli install --skills
+
+<span class="comment"># 3. Verify both</span>
+echo "Standard CLI:"
+npx playwright --version
+echo "@playwright/cli:"
+playwright-cli --version</pre>
+        </div>
+
+        <div class="alert alert-warning" style="margin-top: 1rem;">
+            <strong>Prerequisites:</strong> Node.js 18+ and npm 9+. Run <code>node --version</code> to check.
+        </div>
+    </section>
+
+    <!-- Section 4: Commands -->
+    <section class="section" id="commands">
+        <h2 class="section-title"><span class="num-heading">4</span> All CLI Commands & Flags</h2>
+        <p class="section-subtitle">Complete command reference for both CLIs</p>
+
+        <h3 style="margin-bottom: 1rem;">Standard CLI Commands</h3>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>npx playwright test</code></td><td>Run all tests</td><td><code>npx playwright test</code></td></tr>
+                    <tr><td><code>test --headed</code></td><td>Run in visible browser</td><td><code>npx playwright test --headed</code></td></tr>
+                    <tr><td><code>test --debug</code></td><td>Debug with Inspector</td><td><code>npx playwright test --debug</code></td></tr>
+                    <tr><td><code>test --ui</code></td><td>Interactive UI mode</td><td><code>npx playwright test --ui</code></td></tr>
+                    <tr><td><code>test --grep</code></td><td>Filter tests by name</td><td><code>npx playwright test --grep "login"</code></td></tr>
+                    <tr><td><code>test --project</code></td><td>Run specific browser</td><td><code>npx playwright test --project=chromium</code></td></tr>
+                    <tr><td><code>test --workers</code></td><td>Parallel workers</td><td><code>npx playwright test --workers=4</code></td></tr>
+                    <tr><td><code>test --retries</code></td><td>Retry failed tests</td><td><code>npx playwright test --retries=2</code></td></tr>
+                    <tr><td><code>test --trace on</code></td><td>Record traces</td><td><code>npx playwright test --trace on</code></td></tr>
+                    <tr><td><code>test --shard</code></td><td>Shard across machines</td><td><code>npx playwright test --shard=1/3</code></td></tr>
+                    <tr><td><code>codegen</code></td><td>Record tests</td><td><code>npx playwright codegen https://app.vwo.com</code></td></tr>
+                    <tr><td><code>show-report</code></td><td>View HTML report</td><td><code>npx playwright show-report</code></td></tr>
+                    <tr><td><code>show-trace</code></td><td>View trace file</td><td><code>npx playwright show-trace trace.zip</code></td></tr>
+                    <tr><td><code>install</code></td><td>Install browsers</td><td><code>npx playwright install chromium</code></td></tr>
+                    <tr><td><code>clear-cache</code></td><td>Clear browser cache</td><td><code>npx playwright clear-cache</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Codegen Flags</h3>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr><th>Flag</th><th>Purpose</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>--target</code></td><td>Language output</td><td><code>--target javascript</code> / <code>python</code> / <code>java</code> / <code>csharp</code></td></tr>
+                    <tr><td><code>--output</code></td><td>Save to file</td><td><code>--output tests/login.spec.js</code></td></tr>
+                    <tr><td><code>--browser</code></td><td>Browser to use</td><td><code>--browser firefox</code></td></tr>
+                    <tr><td><code>--device</code></td><td>Emulate device</td><td><code>--device "iPhone 13"</code></td></tr>
+                    <tr><td><code>--viewport-size</code></td><td>Set viewport</td><td><code>--viewport-size "1280,720"</code></td></tr>
+                    <tr><td><code>--color-scheme</code></td><td>Dark/light mode</td><td><code>--color-scheme dark</code></td></tr>
+                    <tr><td><code>--save-storage</code></td><td>Save auth state</td><td><code>--save-storage auth.json</code></td></tr>
+                    <tr><td><code>--load-storage</code></td><td>Load auth state</td><td><code>--load-storage auth.json</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">@playwright/cli Commands (AI Agent CLI)</h3>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr><th>Category</th><th>Commands</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Browser</strong></td><td><code>open</code>, <code>close</code>, <code>goto</code>, <code>reload</code></td></tr>
+                    <tr><td><strong>Interaction</strong></td><td><code>click</code>, <code>fill</code>, <code>type</code>, <code>drag</code>, <code>select</code>, <code>check</code>, <code>uncheck</code></td></tr>
+                    <tr><td><strong>Inspection</strong></td><td><code>snapshot</code>, <code>screenshot</code>, <code>pdf</code>, <code>eval</code>, <code>console</code>, <code>network</code></td></tr>
+                    <tr><td><strong>Keyboard</strong></td><td><code>press</code>, <code>mousemove</code>, <code>mousewheel</code></td></tr>
+                    <tr><td><strong>Storage</strong></td><td><code>state-save</code>, <code>state-load</code>, <code>cookie-list</code>, <code>localstorage-list</code></td></tr>
+                    <tr><td><strong>Tracing</strong></td><td><code>tracing-start</code>, <code>tracing-stop</code>, <code>video-start</code>, <code>video-stop</code></td></tr>
+                    <tr><td><strong>Session</strong></td><td><code>list</code>, <code>close-all</code>, <code>kill-all</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Section 5: Codegen -->
+    <section class="section" id="codegen">
+        <h2 class="section-title"><span class="num-heading">5</span> Codegen - Recording Tests</h2>
+        <p class="section-subtitle">The fastest way to create Playwright tests</p>
+
+        <div class="flow-steps">
+            <div class="flow-step">Run codegen</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-step">Interact with browser</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-step">Code auto-generated</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-step">Copy/Save test</div>
+        </div>
+
+        <pre><span class="comment"># Basic codegen</span>
+npx playwright codegen https://app.vwo.com
+
+<span class="comment"># Generate Python test</span>
+npx playwright codegen --target python https://app.vwo.com
+
+<span class="comment"># Save directly to file</span>
+npx playwright codegen --output tests/login.spec.js https://app.vwo.com
+
+<span class="comment"># Emulate iPhone 13</span>
+npx playwright codegen --device "iPhone 13" https://app.vwo.com
+
+<span class="comment"># Dark mode + timezone</span>
+npx playwright codegen --color-scheme dark --timezone "Asia/Kolkata" https://app.vwo.com
+
+<span class="comment"># Save authentication state after login</span>
+npx playwright codegen --save-storage auth.json https://app.vwo.com
+
+<span class="comment"># Reuse saved auth in next session</span>
+npx playwright codegen --load-storage auth.json https://app.vwo.com</pre>
+
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3>How Codegen Generates Locators</h3>
+            <p>Codegen automatically picks the most resilient locator strategy, in this order of priority:</p>
+            <table>
+                <tr><th>Priority</th><th>Strategy</th><th>Example</th></tr>
+                <tr><td>1</td><td>Role-based</td><td><code>getByRole('button', { name: 'Login' })</code></td></tr>
+                <tr><td>2</td><td>Text-based</td><td><code>getByText('Welcome back')</code></td></tr>
+                <tr><td>3</td><td>Test ID</td><td><code>getByTestId('login-btn')</code></td></tr>
+                <tr><td>4</td><td>Placeholder</td><td><code>getByPlaceholder('Enter email')</code></td></tr>
+                <tr><td>5</td><td>CSS Selector</td><td><code>locator('#login-form input')</code></td></tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Section 6: MCP vs CLI -->
+    <section class="section" id="mcp-vs-cli">
+        <h2 class="section-title"><span class="num-heading">6</span> MCP vs CLI - Complete Comparison</h2>
+        <p class="section-subtitle">When to use Playwright MCP Server vs the CLI tool</p>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr><th>Aspect</th><th>Playwright MCP Server</th><th>Playwright CLI</th><th>@playwright/cli (New)</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Architecture</strong></td>
+                        <td>JSON-RPC over stdio/SSE, runs inside AI agent process</td>
+                        <td>Standard CLI, one-shot execution per command</td>
+                        <td>Client-daemon over Unix sockets, persistent sessions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Token Usage</strong></td>
+                        <td>~115K tokens per 30 actions (snapshots in context)</td>
+                        <td>N/A (not used with AI agents)</td>
+                        <td>~25K tokens per 30 actions (snapshots to disk, 4.6x savings)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Setup</strong></td>
+                        <td>Add to MCP config (settings.json), auto-starts</td>
+                        <td><code>npm init playwright@latest</code></td>
+                        <td><code>npm i -g @playwright/cli</code> + skills install</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Browser Lifetime</strong></td>
+                        <td>Managed by MCP server, per-tool-call</td>
+                        <td>Starts/stops per command</td>
+                        <td>Persistent daemon, survives between commands</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best For</strong></td>
+                        <td>AI agents doing interactive testing, live exploration</td>
+                        <td>CI/CD, manual test runs, codegen, reports</td>
+                        <td>AI agents needing token-efficient browser automation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IDE Support</strong></td>
+                        <td>Claude Code, Cursor, Windsurf (via MCP config)</td>
+                        <td>VS Code Extension, any terminal</td>
+                        <td>Claude Code, Cursor, Copilot, Windsurf (via skills)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Codegen</strong></td>
+                        <td>No built-in codegen</td>
+                        <td>Full codegen with Inspector UI</td>
+                        <td>YAML flow logging, auto-generates code</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-browser</strong></td>
+                        <td>One browser per session</td>
+                        <td>Parallel via --project and --shard</td>
+                        <td>Named sessions, parallel instances</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tracing</strong></td>
+                        <td>Supported via tool calls</td>
+                        <td><code>--trace on</code> flag</td>
+                        <td><code>tracing-start</code> / <code>tracing-stop</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network Mocking</strong></td>
+                        <td>Not directly supported</td>
+                        <td>Via test code (page.route)</td>
+                        <td><code>route</code> command</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Decision Matrix: Which Tool to Use?</h3>
+        <div class="card-grid-3">
+            <div class="card" style="border-left: 3px solid #22c55e;">
+                <h3>Use Standard CLI When:</h3>
+                <ul>
+                    <li>Running tests in CI/CD</li>
+                    <li>Recording tests with codegen</li>
+                    <li>Viewing reports and traces</li>
+                    <li>Manual QA workflows</li>
+                    <li>Installing/managing browsers</li>
+                </ul>
+            </div>
+            <div class="card" style="border-left: 3px solid #3b82f6;">
+                <h3>Use MCP Server When:</h3>
+                <ul>
+                    <li>AI agent needs live browser access</li>
+                    <li>Interactive test exploration</li>
+                    <li>Context window is not a concern</li>
+                    <li>Already using MCP infrastructure</li>
+                    <li>Need rich snapshot data in-context</li>
+                </ul>
+            </div>
+            <div class="card" style="border-left: 3px solid #40916c;">
+                <h3>Use @playwright/cli When:</h3>
+                <ul>
+                    <li>AI agent needs token efficiency</li>
+                    <li>Persistent browser sessions needed</li>
+                    <li>Complex multi-step automation</li>
+                    <li>Network mocking required</li>
+                    <li>State save/restore workflows</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: IDE Integration -->
+    <section class="section" id="ide-integration">
+        <h2 class="section-title"><span class="num-heading">7</span> IDE & AI Tool Integration</h2>
+        <p class="section-subtitle">Setting up Playwright CLI across VS Code, Claude Code, Codex, Cursor, and Windsurf</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="ide-vscode">VS Code</button>
+            <button class="tab-btn" data-tab="ide-claude">Claude Code</button>
+            <button class="tab-btn" data-tab="ide-cursor">Cursor</button>
+            <button class="tab-btn" data-tab="ide-windsurf">Windsurf</button>
+            <button class="tab-btn" data-tab="ide-codex">Codex</button>
+        </div>
+
+        <div class="tab-content active" id="ide-vscode">
+            <div class="card">
+                <h3>VS Code - Playwright Test Extension</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Install the extension</strong>
+                        <p>Search for "Playwright Test for VS Code" in the Extensions panel and install it.</p>
+                    </li>
+                    <li>
+                        <strong>Key Features</strong>
+                        <ul>
+                            <li><strong>Record New:</strong> Click "Record New" in the Testing sidebar to open a browser and generate a test file while you interact.</li>
+                            <li><strong>Record at Cursor:</strong> Place your cursor in an existing test and click "Record at Cursor" to append new actions.</li>
+                            <li><strong>Pick Locator:</strong> Hover over elements in the browser to see locators, click to copy.</li>
+                            <li><strong>Show Trace:</strong> Right-click a test result to view its trace inline.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Run from Terminal</strong>
+                        <pre><span class="comment"># All standard CLI commands work in VS Code terminal</span>
+npx playwright test --headed
+npx playwright codegen https://app.vwo.com
+npx playwright show-report</pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="tab-content" id="ide-claude">
+            <div class="card">
+                <h3>Claude Code Integration</h3>
+                <p style="margin-bottom:1rem;">Claude Code supports Playwright via <strong>two methods</strong>: MCP Server and @playwright/cli Skills.</p>
+
+                <h4>Method 1: MCP Server (in settings.json)</h4>
+                <pre>{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}</pre>
+                <p>This gives Claude Code direct browser_snapshot, browser_click, browser_type etc. tools.</p>
+
+                <h4 style="margin-top:1.5rem;">Method 2: @playwright/cli with Skills</h4>
+                <pre><span class="comment"># Install CLI + skills</span>
+npm install -g @playwright/cli@latest
+playwright-cli install --skills
+
+<span class="comment"># This creates .claude/skills/playwright-cli/SKILL.md</span>
+<span class="comment"># Claude Code auto-discovers and uses it</span></pre>
+
+                <h4 style="margin-top:1.5rem;">Method 3: Custom Skill File</h4>
+                <p>Create your own skill (see <a href="#skill">Skill File section</a> below) to customize how Claude Code uses the CLI.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="ide-cursor">
+            <div class="card">
+                <h3>Cursor Integration</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>MCP Config</strong>
+                        <p>Open Cursor Settings > MCP and add:</p>
+                        <pre>{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}</pre>
+                    </li>
+                    <li>
+                        <strong>@playwright/cli Skills</strong>
+                        <pre>npm install -g @playwright/cli@latest
+playwright-cli install --skills</pre>
+                        <p>Cursor's AI composer auto-detects the skill file in <code>.cursor/skills/</code> or <code>.claude/skills/</code>.</p>
+                    </li>
+                    <li>
+                        <strong>Terminal commands</strong>
+                        <pre><span class="comment"># Use standard CLI in Cursor's terminal</span>
+npx playwright test --headed
+npx playwright codegen https://app.vwo.com</pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="tab-content" id="ide-windsurf">
+            <div class="card">
+                <h3>Windsurf (Codeium) Integration</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>MCP Server Setup</strong>
+                        <p>Add to Windsurf's MCP configuration:</p>
+                        <pre>{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}</pre>
+                    </li>
+                    <li>
+                        <strong>@playwright/cli</strong>
+                        <pre>npm install -g @playwright/cli@latest
+playwright-cli install --skills</pre>
+                        <p>Windsurf's Cascade AI detects skills and offers browser automation commands.</p>
+                    </li>
+                    <li>
+                        <strong>Use in Chat</strong>
+                        <p>Ask Cascade: "Open app.vwo.com and record a login test" - it will use the detected Playwright CLI tools.</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="tab-content" id="ide-codex">
+            <div class="card">
+                <h3>OpenAI Codex CLI Integration</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Setup</strong>
+                        <p>Codex CLI works with terminal commands. Install both CLIs:</p>
+                        <pre>npm init playwright@latest
+npm install -g @playwright/cli@latest</pre>
+                    </li>
+                    <li>
+                        <strong>Usage</strong>
+                        <p>Ask Codex to generate and run Playwright CLI commands:</p>
+                        <pre><span class="comment"># Example Codex prompts:</span>
+"Generate a Playwright test for app.vwo.com login"
+"Run my Playwright tests with retries"
+"Record a codegen session for the checkout flow"</pre>
+                    </li>
+                    <li>
+                        <strong>Integration</strong>
+                        <p>Codex reads your <code>playwright.config.js</code> and test files to understand your project structure. It can generate npx playwright commands directly.</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Projects -->
+    <section class="section" id="projects">
+        <h2 class="section-title"><span class="num-heading">8</span> Three Hands-On Projects</h2>
+        <p class="section-subtitle">Complete walkthroughs with code samples</p>
+
+        <!-- Project 1 -->
+        <div class="card" id="project1" style="border-left: 4px solid #22c55e; margin-top: 2rem;">
+            <h3 style="color: #2d6a4f;">Project 1: Automate Login on app.vwo.com using Playwright CLI</h3>
+            <span class="badge badge-green">Beginner</span>
+            <span class="badge badge-blue">Codegen + Manual</span>
+
+            <h4 style="margin-top:1.5rem;">Objective</h4>
+            <p>Use Playwright CLI codegen to record a login flow on <code>app.vwo.com</code>, then refine the generated test into a production-ready spec file.</p>
+
+            <h4 style="margin-top:1.5rem;">Step 1: Record with Codegen</h4>
+            <pre><span class="comment"># Open codegen targeting app.vwo.com</span>
+npx playwright codegen https://app.vwo.com
+
+<span class="comment"># Save output directly to a file</span>
+npx playwright codegen --output tests/vwo_login.spec.js https://app.vwo.com</pre>
+
+            <div class="alert alert-info">
+                <strong>During recording:</strong> Navigate to app.vwo.com, enter your email, enter your password, click Sign In. The Inspector window shows the generated code in real-time.
+            </div>
+
+            <h4 style="margin-top:1.5rem;">Step 2: Generated Code (Typical Output)</h4>
+            <pre><span class="kw">import</span> { test, expect } <span class="kw">from</span> <span class="str">'@playwright/test'</span>;
+
+test(<span class="str">'VWO Login Test'</span>, <span class="kw">async</span> ({ page }) => {
+  <span class="comment">// Navigate to VWO login page</span>
+  <span class="kw">await</span> page.<span class="fn">goto</span>(<span class="str">'https://app.vwo.com'</span>);
+
+  <span class="comment">// Fill email field</span>
+  <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'e.g. ashley@example.com'</span>)
+    .<span class="fn">fill</span>(<span class="str">'your_email@example.com'</span>);
+
+  <span class="comment">// Fill password field</span>
+  <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'Enter password'</span>)
+    .<span class="fn">fill</span>(<span class="str">'your_password_here'</span>);
+
+  <span class="comment">// Click Sign In button</span>
+  <span class="kw">await</span> page.<span class="fn">getByRole</span>(<span class="str">'button'</span>, { name: <span class="str">'Sign in to VWO'</span> })
+    .<span class="fn">click</span>();
+
+  <span class="comment">// Assert successful login - dashboard is visible</span>
+  <span class="kw">await</span> <span class="fn">expect</span>(page).<span class="fn">toHaveURL</span>(<span class="str">/dashboard/</span>);
+});</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 3: Refine into Framework Pattern</h4>
+            <pre><span class="comment">// tests/vwo_login.spec.js - Production-ready version</span>
+<span class="kw">import</span> { test, expect } <span class="kw">from</span> <span class="str">'@playwright/test'</span>;
+
+<span class="comment">// Test data (move to .env or config in real projects)</span>
+<span class="kw">const</span> LOGIN_URL = <span class="str">'https://app.vwo.com'</span>;
+<span class="kw">const</span> VALID_EMAIL = process.env.VWO_EMAIL || <span class="str">'test@example.com'</span>;
+<span class="kw">const</span> VALID_PASS = process.env.VWO_PASS || <span class="str">'TestPass123'</span>;
+
+test.describe(<span class="str">'VWO Login Suite'</span>, () => {
+
+  test.beforeEach(<span class="kw">async</span> ({ page }) => {
+    <span class="kw">await</span> page.<span class="fn">goto</span>(LOGIN_URL);
+  });
+
+  test(<span class="str">'TC-001: Successful login with valid credentials'</span>,
+    <span class="kw">async</span> ({ page }) => {
+      <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'e.g. ashley@example.com'</span>)
+        .<span class="fn">fill</span>(VALID_EMAIL);
+      <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'Enter password'</span>)
+        .<span class="fn">fill</span>(VALID_PASS);
+      <span class="kw">await</span> page.<span class="fn">getByRole</span>(<span class="str">'button'</span>, { name: <span class="str">'Sign in to VWO'</span> })
+        .<span class="fn">click</span>();
+      <span class="kw">await</span> <span class="fn">expect</span>(page).<span class="fn">toHaveURL</span>(<span class="str">/dashboard/</span>);
+  });
+
+  test(<span class="str">'TC-002: Login fails with invalid password'</span>,
+    <span class="kw">async</span> ({ page }) => {
+      <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'e.g. ashley@example.com'</span>)
+        .<span class="fn">fill</span>(VALID_EMAIL);
+      <span class="kw">await</span> page.<span class="fn">getByPlaceholder</span>(<span class="str">'Enter password'</span>)
+        .<span class="fn">fill</span>(<span class="str">'WrongPassword'</span>);
+      <span class="kw">await</span> page.<span class="fn">getByRole</span>(<span class="str">'button'</span>, { name: <span class="str">'Sign in to VWO'</span> })
+        .<span class="fn">click</span>();
+      <span class="kw">await</span> <span class="fn">expect</span>(
+        page.<span class="fn">getByText</span>(<span class="str">'Your email or password is incorrect'</span>)
+      ).<span class="fn">toBeVisible</span>();
+  });
+
+  test(<span class="str">'TC-003: Login fails with empty fields'</span>,
+    <span class="kw">async</span> ({ page }) => {
+      <span class="kw">await</span> page.<span class="fn">getByRole</span>(<span class="str">'button'</span>, { name: <span class="str">'Sign in to VWO'</span> })
+        .<span class="fn">click</span>();
+      <span class="comment">// Verify validation error appears</span>
+      <span class="kw">await</span> <span class="fn">expect</span>(
+        page.<span class="fn">getByText</span>(<span class="str">'required'</span>)
+      ).<span class="fn">toBeVisible</span>();
+  });
+});</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 4: Run the Tests</h4>
+            <pre><span class="comment"># Run all login tests</span>
+npx playwright test tests/vwo_login.spec.js --headed
+
+<span class="comment"># Run with trace for debugging</span>
+npx playwright test tests/vwo_login.spec.js --trace on
+
+<span class="comment"># Run on specific browser</span>
+npx playwright test tests/vwo_login.spec.js --project=chromium
+
+<span class="comment"># Debug mode with Inspector</span>
+npx playwright test tests/vwo_login.spec.js --debug</pre>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="card" id="project2" style="border-left: 4px solid #3b82f6;">
+            <h3 style="color: #40916c;">Project 2: Generate E2E Test Suite with Codegen</h3>
+            <span class="badge badge-blue">Intermediate</span>
+            <span class="badge badge-orange">Full Suite</span>
+
+            <h4 style="margin-top:1.5rem;">Objective</h4>
+            <p>Use codegen to generate a complete E2E test suite for <code>the-internet.herokuapp.com</code> covering multiple pages, then run with reporting and tracing.</p>
+
+            <h4 style="margin-top:1.5rem;">Step 1: Record Multiple Flows</h4>
+            <pre><span class="comment"># Record form authentication flow</span>
+npx playwright codegen \
+  --output tests/auth.spec.js \
+  https://the-internet.herokuapp.com/login
+
+<span class="comment"># Record dropdown interaction</span>
+npx playwright codegen \
+  --output tests/dropdown.spec.js \
+  https://the-internet.herokuapp.com/dropdown
+
+<span class="comment"># Record checkbox interactions</span>
+npx playwright codegen \
+  --output tests/checkboxes.spec.js \
+  https://the-internet.herokuapp.com/checkboxes
+
+<span class="comment"># Record on mobile viewport</span>
+npx playwright codegen \
+  --device "iPhone 13" \
+  --output tests/mobile_nav.spec.js \
+  https://the-internet.herokuapp.com</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 2: Save Auth State for Reuse</h4>
+            <pre><span class="comment"># Login once, save state</span>
+npx playwright codegen \
+  --save-storage auth-state.json \
+  https://the-internet.herokuapp.com/login
+
+<span class="comment"># Now use saved state in future codegen sessions</span>
+npx playwright codegen \
+  --load-storage auth-state.json \
+  https://the-internet.herokuapp.com/secure</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 3: Configure and Run Full Suite</h4>
+            <pre><span class="comment">// playwright.config.js</span>
+<span class="kw">module.exports</span> = {
+  testDir: <span class="str">'./tests'</span>,
+  timeout: <span class="num">30000</span>,
+  retries: <span class="num">1</span>,
+  workers: <span class="num">3</span>,
+  reporter: [
+    [<span class="str">'html'</span>, { open: <span class="str">'never'</span> }],
+    [<span class="str">'json'</span>, { outputFile: <span class="str">'reports/results.json'</span> }]
+  ],
+  use: {
+    baseURL: <span class="str">'https://the-internet.herokuapp.com'</span>,
+    trace: <span class="str">'on-first-retry'</span>,
+    screenshot: <span class="str">'only-on-failure'</span>,
+  },
+  projects: [
+    { name: <span class="str">'chromium'</span>, use: { browserName: <span class="str">'chromium'</span> } },
+    { name: <span class="str">'firefox'</span>, use: { browserName: <span class="str">'firefox'</span> } },
+    { name: <span class="str">'webkit'</span>, use: { browserName: <span class="str">'webkit'</span> } },
+  ],
+};</pre>
+
+            <pre><span class="comment"># Run full suite across all browsers</span>
+npx playwright test
+
+<span class="comment"># View the HTML report</span>
+npx playwright show-report
+
+<span class="comment"># Run only auth tests with retries</span>
+npx playwright test --grep "auth" --retries=2
+
+<span class="comment"># Shard across 3 CI machines</span>
+npx playwright test --shard=1/3
+npx playwright test --shard=2/3
+npx playwright test --shard=3/3</pre>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="card" id="project3" style="border-left: 4px solid #40916c;">
+            <h3 style="color: #40916c;">Project 3: AI Agent + Playwright CLI Workflow</h3>
+            <span class="badge badge-red">Advanced</span>
+            <span class="badge badge-orange">AI Integration</span>
+
+            <h4 style="margin-top:1.5rem;">Objective</h4>
+            <p>Use <code>@playwright/cli</code> with an AI agent (Claude Code) to interactively automate and test a web application with persistent sessions and token-efficient snapshots.</p>
+
+            <h4 style="margin-top:1.5rem;">Step 1: Setup @playwright/cli with Skills</h4>
+            <pre><span class="comment"># Install and setup</span>
+npm install -g @playwright/cli@latest
+playwright-cli install
+playwright-cli install --skills
+
+<span class="comment"># Verify skill file was created</span>
+cat .claude/skills/playwright-cli/SKILL.md</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 2: Interactive Session (via Claude Code or Terminal)</h4>
+            <pre><span class="comment"># Open a persistent session</span>
+playwright-cli open https://app.vwo.com -s=vwo-login --persistent
+
+<span class="comment"># Take an accessibility snapshot (saved to disk, not stdout)</span>
+playwright-cli snapshot -s=vwo-login
+
+<span class="comment"># Fill the email field (using snapshot ref e.g., e15)</span>
+playwright-cli fill e15 "test@example.com" -s=vwo-login
+
+<span class="comment"># Fill password (ref e22 from snapshot)</span>
+playwright-cli fill e22 "MyPassword123" -s=vwo-login
+
+<span class="comment"># Click the Sign In button (ref e28)</span>
+playwright-cli click e28 -s=vwo-login
+
+<span class="comment"># Take a screenshot to verify</span>
+playwright-cli screenshot -s=vwo-login
+
+<span class="comment"># Save auth state for reuse</span>
+playwright-cli state-save vwo-auth.json -s=vwo-login
+
+<span class="comment"># Start tracing for debugging</span>
+playwright-cli tracing-start -s=vwo-login
+
+<span class="comment"># ... do more actions ...</span>
+
+<span class="comment"># Stop tracing and save</span>
+playwright-cli tracing-stop -s=vwo-login --output trace.zip</pre>
+
+            <h4 style="margin-top:1.5rem;">Step 3: AI Agent Workflow Example</h4>
+            <pre><span class="comment">// Example: What happens when you tell Claude Code</span>
+<span class="comment">// "Login to app.vwo.com and verify the dashboard loads"</span>
+
+<span class="comment">// Claude Code with @playwright/cli skill will:</span>
+<span class="comment">// 1. Run: playwright-cli open https://app.vwo.com -s=test</span>
+<span class="comment">// 2. Run: playwright-cli snapshot -s=test</span>
+<span class="comment">// 3. Read snapshot file (25K tokens vs 115K with MCP)</span>
+<span class="comment">// 4. Identify email field ref, fill it</span>
+<span class="comment">// 5. Identify password field ref, fill it</span>
+<span class="comment">// 6. Click sign-in button ref</span>
+<span class="comment">// 7. Take screenshot to verify dashboard</span>
+<span class="comment">// 8. Report results back to you</span></pre>
+
+            <h4 style="margin-top:1.5rem;">MCP vs CLI Token Comparison</h4>
+            <div class="diagram">
+30-action login automation flow:
+
+MCP Server:    |████████████████████████████████████████████████| ~115,000 tokens
+@playwright/cli: |██████████|                                      ~25,000 tokens
+
+Savings: 4.6x fewer tokens = Faster responses + Lower cost
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Exercises -->
+    <section class="section" id="exercises">
+        <h2 class="section-title"><span class="num-heading">9</span> 10 Exercises for Practice</h2>
+        <p class="section-subtitle">Hands-on tasks to build your Playwright CLI mastery</p>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 1: Your First CLI Test Run</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Create a basic Playwright project and run the sample tests.</p>
+                <pre>mkdir my-pw-project && cd my-pw-project
+npm init playwright@latest
+npx playwright test
+npx playwright show-report</pre>
+                <p><strong>Expected:</strong> See test results in terminal and HTML report opens in browser.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 2: Record a Google Search Test</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Use codegen to record a test that searches Google for "Playwright testing" and verifies results appear.</p>
+                <pre>npx playwright codegen --output tests/google.spec.js https://google.com</pre>
+                <p><strong>Steps:</strong> Type in search box, press Enter, verify results. Save and run.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 3: Multi-Browser Test Execution</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Run your tests on Chromium, Firefox, and WebKit using CLI flags.</p>
+                <pre><span class="comment"># Run on each individually</span>
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
+
+<span class="comment"># Run all three at once</span>
+npx playwright test</pre>
+                <p><strong>Expected:</strong> Compare results across all three browsers.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 4: Codegen with Device Emulation</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Record a mobile test on iPhone 13 and iPad Pro.</p>
+                <pre>npx playwright codegen --device "iPhone 13" https://example.com
+npx playwright codegen --device "iPad Pro 11" https://example.com</pre>
+                <p><strong>Expected:</strong> Browser opens with device viewport. Generated code includes device config.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 5: Debug a Failing Test</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Create an intentionally failing test, then use debug mode and trace to find the issue.</p>
+                <pre><span class="comment">// Create a test that will fail</span>
+test('should find nonexistent element', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page.locator('#does-not-exist')).toBeVisible();
+});
+
+<span class="comment"># Debug it</span>
+npx playwright test --debug
+
+<span class="comment"># Or use trace</span>
+npx playwright test --trace on
+npx playwright show-trace test-results/*/trace.zip</pre>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 6: Grep and Filter Tests</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Create 5 tests with different names and practice filtering them.</p>
+                <pre><span class="comment"># Run only tests with "login" in name</span>
+npx playwright test --grep "login"
+
+<span class="comment"># Exclude tests with "slow" in name</span>
+npx playwright test --grep-invert "slow"
+
+<span class="comment"># Run specific file</span>
+npx playwright test tests/auth.spec.js
+
+<span class="comment"># List all tests without running</span>
+npx playwright test --list</pre>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 7: Auth State Save & Reuse</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Use codegen to login to a site, save the auth state, then reuse it in a new session.</p>
+                <pre><span class="comment"># Step 1: Login and save state</span>
+npx playwright codegen --save-storage auth.json https://the-internet.herokuapp.com/login
+
+<span class="comment"># Step 2: Use saved state (skip login)</span>
+npx playwright codegen --load-storage auth.json https://the-internet.herokuapp.com/secure</pre>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 8: CI/CD Pipeline Simulation</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Simulate a CI pipeline by running tests with CI-friendly flags.</p>
+                <pre><span class="comment"># CI-style execution</span>
+npx playwright test \
+  --reporter=json \
+  --output-folder=ci-results \
+  --workers=4 \
+  --retries=2 \
+  --trace=on-first-retry \
+  --forbid-only
+
+<span class="comment"># Sharding for parallel CI jobs</span>
+npx playwright test --shard=1/3
+npx playwright test --shard=2/3
+npx playwright test --shard=3/3</pre>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 9: @playwright/cli Interactive Session</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Install @playwright/cli and automate a form fill using interactive commands.</p>
+                <pre>npm install -g @playwright/cli@latest
+playwright-cli install
+
+<span class="comment"># Open a page</span>
+playwright-cli open https://the-internet.herokuapp.com/login -s=demo
+
+<span class="comment"># Take snapshot to see element refs</span>
+playwright-cli snapshot -s=demo
+
+<span class="comment"># Fill username and password using refs from snapshot</span>
+playwright-cli fill &lt;username-ref&gt; "tomsmith" -s=demo
+playwright-cli fill &lt;password-ref&gt; "SuperSecretPassword!" -s=demo
+playwright-cli click &lt;button-ref&gt; -s=demo
+
+<span class="comment"># Screenshot to verify</span>
+playwright-cli screenshot -s=demo</pre>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">Exercise 10: Custom Reporter + CLI Integration</div>
+            <div class="accordion-body">
+                <p><strong>Task:</strong> Create a custom reporter and use it via CLI flags.</p>
+                <pre><span class="comment">// reporters/my-reporter.js</span>
+class MyReporter {
+  onBegin(config, suite) {
+    console.log(`Starting ${suite.allTests().length} tests`);
+  }
+  onTestEnd(test, result) {
+    console.log(`${result.status}: ${test.title}`);
+  }
+  onEnd(result) {
+    console.log(`Finished: ${result.status}`);
+  }
+}
+module.exports = MyReporter;
+
+<span class="comment"># Use via CLI</span>
+npx playwright test --reporter=./reporters/my-reporter.js</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: Quiz -->
+    <section class="section" id="quiz">
+        <h2 class="section-title"><span class="num-heading">10</span> Quiz - Test Your Knowledge</h2>
+        <p class="section-subtitle">10 questions to check your understanding</p>
+
+        <div class="quiz-item" id="q1">
+            <h4>Q1: Which command records browser interactions and generates test code?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) npx playwright test --record</li>
+                <li onclick="checkAnswer(this, true)">b) npx playwright codegen</li>
+                <li onclick="checkAnswer(this, false)">c) npx playwright generate</li>
+                <li onclick="checkAnswer(this, false)">d) npx playwright capture</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> <code>npx playwright codegen [url]</code> opens a browser and the Playwright Inspector, generating code as you interact.</div>
+        </div>
+
+        <div class="quiz-item" id="q2">
+            <h4>Q2: What is the primary advantage of @playwright/cli over MCP for AI agents?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) More browser support</li>
+                <li onclick="checkAnswer(this, true)">b) ~4.6x token reduction (snapshots to disk)</li>
+                <li onclick="checkAnswer(this, false)">c) Faster browser launch</li>
+                <li onclick="checkAnswer(this, false)">d) Better CSS selectors</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> @playwright/cli writes snapshots to disk instead of streaming them into the model's context, using ~25K tokens vs ~115K for a 30-action flow.</div>
+        </div>
+
+        <div class="quiz-item" id="q3">
+            <h4>Q3: Which flag runs tests in a visible browser window?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) --visible</li>
+                <li onclick="checkAnswer(this, false)">b) --show</li>
+                <li onclick="checkAnswer(this, true)">c) --headed</li>
+                <li onclick="checkAnswer(this, false)">d) --gui</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: c)</strong> <code>npx playwright test --headed</code> runs tests in headed (visible) mode.</div>
+        </div>
+
+        <div class="quiz-item" id="q4">
+            <h4>Q4: How do you save authentication state with codegen?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) --auth-file auth.json</li>
+                <li onclick="checkAnswer(this, true)">b) --save-storage auth.json</li>
+                <li onclick="checkAnswer(this, false)">c) --save-cookies auth.json</li>
+                <li onclick="checkAnswer(this, false)">d) --persist auth.json</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> <code>--save-storage auth.json</code> saves cookies, localStorage, and sessionStorage.</div>
+        </div>
+
+        <div class="quiz-item" id="q5">
+            <h4>Q5: What is the architecture of @playwright/cli?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) HTTP REST API</li>
+                <li onclick="checkAnswer(this, true)">b) Client-daemon over Unix sockets</li>
+                <li onclick="checkAnswer(this, false)">c) WebSocket server</li>
+                <li onclick="checkAnswer(this, false)">d) gRPC protocol</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> @playwright/cli uses a client-daemon architecture where commands travel over Unix sockets and browsers persist between calls.</div>
+        </div>
+
+        <div class="quiz-item" id="q6">
+            <h4>Q6: Which command opens the interactive test runner in VS Code?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, true)">a) npx playwright test --ui</li>
+                <li onclick="checkAnswer(this, false)">b) npx playwright test --interactive</li>
+                <li onclick="checkAnswer(this, false)">c) npx playwright test --vscode</li>
+                <li onclick="checkAnswer(this, false)">d) npx playwright ui</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: a)</strong> <code>--ui</code> opens the Playwright UI Mode for interactive test running and debugging.</div>
+        </div>
+
+        <div class="quiz-item" id="q7">
+            <h4>Q7: How do you run tests on only Firefox using CLI?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) npx playwright test --browser=firefox</li>
+                <li onclick="checkAnswer(this, true)">b) npx playwright test --project=firefox</li>
+                <li onclick="checkAnswer(this, false)">c) npx playwright test --firefox</li>
+                <li onclick="checkAnswer(this, false)">d) npx playwright test --only-firefox</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> <code>--project=firefox</code> runs tests on the Firefox project as defined in playwright.config.</div>
+        </div>
+
+        <div class="quiz-item" id="q8">
+            <h4>Q8: What does the codegen --target python flag do?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) Runs the recorded test in Python</li>
+                <li onclick="checkAnswer(this, true)">b) Generates the recorded code in Python syntax</li>
+                <li onclick="checkAnswer(this, false)">c) Uses Python to control the browser</li>
+                <li onclick="checkAnswer(this, false)">d) Converts existing JS tests to Python</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> <code>--target python</code> generates the recorded interactions as Python code (using pytest-playwright syntax).</div>
+        </div>
+
+        <div class="quiz-item" id="q9">
+            <h4>Q9: In @playwright/cli, what does the -s flag specify?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) Selector strategy</li>
+                <li onclick="checkAnswer(this, true)">b) Session name</li>
+                <li onclick="checkAnswer(this, false)">c) Screenshot output</li>
+                <li onclick="checkAnswer(this, false)">d) Speed setting</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: b)</strong> <code>-s=name</code> specifies a named session. Multiple sessions can run in parallel.</div>
+        </div>
+
+        <div class="quiz-item" id="q10">
+            <h4>Q10: Which locator strategy does Playwright codegen prioritize first?</h4>
+            <ul class="quiz-options">
+                <li onclick="checkAnswer(this, false)">a) CSS selectors</li>
+                <li onclick="checkAnswer(this, false)">b) XPath</li>
+                <li onclick="checkAnswer(this, true)">c) Role-based (getByRole)</li>
+                <li onclick="checkAnswer(this, false)">d) Test ID (getByTestId)</li>
+            </ul>
+            <div class="quiz-answer"><strong>Answer: c)</strong> Codegen prioritizes <code>getByRole</code> first, then <code>getByText</code>, then <code>getByTestId</code>, then CSS selectors.</div>
+        </div>
+    </section>
+
+    <!-- Section 11: Interview Questions -->
+    <section class="section" id="interview">
+        <h2 class="section-title"><span class="num-heading">11</span> 10 Interview Questions & Answers</h2>
+        <p class="section-subtitle">Commonly asked Playwright CLI questions in QA interviews</p>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">1. What is Playwright CLI and how does it differ from Playwright as a library?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Playwright CLI is the command-line interface that ships with the @playwright/test package. While Playwright as a library provides APIs to write test scripts programmatically (page.goto, page.click, etc.), the CLI provides tools to <strong>run</strong> those tests (npx playwright test), <strong>record</strong> new tests (codegen), <strong>debug</strong> them (--debug), <strong>view reports</strong> (show-report), and <strong>manage browsers</strong> (install). The CLI is the operational layer on top of the library.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">2. Explain the Playwright codegen tool and its use cases.</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> <code>npx playwright codegen [url]</code> opens a browser and the Playwright Inspector side by side. As you interact with the browser (click, type, navigate), the Inspector generates test code in real-time. Use cases include: rapid test prototyping, discovering correct locators for complex UIs, generating tests in multiple languages (JS, Python, Java, C#), testing mobile viewports via --device flag, and saving auth state via --save-storage for reuse.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">3. How do you run Playwright tests across multiple browsers?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Define projects in playwright.config.js for each browser (chromium, firefox, webkit). Then run <code>npx playwright test</code> to execute on all, or <code>npx playwright test --project=chromium</code> for a specific one. For CI, use sharding: <code>--shard=1/3</code>, <code>--shard=2/3</code>, <code>--shard=3/3</code> to distribute tests across parallel machines.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">4. What is the difference between --headed, --debug, and --ui modes?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong></p>
+                <ul>
+                    <li><strong>--headed:</strong> Runs tests with a visible browser window. Tests execute at full speed. Good for watching test execution.</li>
+                    <li><strong>--debug:</strong> Opens Playwright Inspector alongside the browser. Tests pause at each step, letting you step through, inspect locators, and evaluate expressions. Best for debugging failures.</li>
+                    <li><strong>--ui:</strong> Opens an interactive web UI with a test list, timeline, trace viewer, and source code view. You can run, filter, and watch tests. Best for development workflow.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">5. How do you handle test retries and flaky tests with Playwright CLI?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Use <code>npx playwright test --retries=2</code> to retry failed tests up to 2 times. Combine with <code>--trace on-first-retry</code> to capture traces only when a retry happens (saving disk space). In CI, use <code>--reporter=json</code> to track flaky test patterns. The <code>--forbid-only</code> flag prevents accidentally committed test.only from running in CI.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">6. Explain the Playwright Trace Viewer and how to use it.</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> The Trace Viewer is a post-mortem debugging tool. Record traces with <code>npx playwright test --trace on</code>. View with <code>npx playwright show-trace trace.zip</code>. It shows: a timeline of every action, DOM snapshots before/after each action, network requests, console logs, and test source code. It is essential for debugging CI failures where you cannot reproduce locally.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">7. What is @playwright/cli and how does it compare to the standard CLI?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> @playwright/cli is a separate npm package purpose-built for AI coding agents (Claude Code, Cursor, Copilot). Key differences: (1) Uses client-daemon architecture with persistent browser sessions vs one-shot execution. (2) Writes snapshots to disk (~4.6x token reduction vs MCP). (3) Supports named sessions via -s flag for parallel automation. (4) Has 50+ interactive commands (click, fill, snapshot) vs the standard CLI's test-runner focus. Choose standard CLI for CI/CD test runs, @playwright/cli for AI agent workflows.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">8. How do you integrate Playwright CLI with CI/CD pipelines?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Key CI flags: <code>--reporter=json,html</code> for machine-readable + human-readable output; <code>--workers=4</code> for parallelism; <code>--retries=2</code> for flaky test resilience; <code>--shard=1/N</code> for distributing across N machines; <code>--forbid-only</code> to prevent test.only leaks. For Docker: <code>npx playwright install --with-deps</code> installs browser + OS dependencies. GitHub Actions has a dedicated playwright action for caching browsers.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">9. What is Playwright MCP and when would you use it vs the CLI?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Playwright MCP (Model Context Protocol) Server provides browser automation as tool calls within an AI agent's context. Use MCP when: the AI agent needs real-time browser state in its context window, doing interactive exploration, or already using MCP infrastructure. Use CLI when: running in CI/CD, recording tests with codegen, viewing reports/traces, or when token efficiency matters (@playwright/cli uses 4.6x fewer tokens than MCP).</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+            <div class="accordion-header">10. How does Playwright codegen choose locator strategies?</div>
+            <div class="accordion-body">
+                <p><strong>Answer:</strong> Codegen uses a priority-based locator selection: (1) getByRole - most resilient, uses ARIA roles; (2) getByText - visible text content; (3) getByTestId - data-testid attributes; (4) getByPlaceholder - input placeholders; (5) CSS selectors - last resort. This hierarchy produces tests that are less brittle and more maintainable. The VS Code extension's "Pick Locator" feature uses the same algorithm to suggest locators on hover.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 12: Skill File -->
+    <section class="section" id="skill">
+        <h2 class="section-title"><span class="num-heading">12</span> Playwright CLI Skill File</h2>
+        <p class="section-subtitle">Ready-to-use skill for Claude Code / AI agents</p>
+
+        <div class="card">
+            <h3>How to Install</h3>
+            <pre><span class="comment"># Create the skill directory</span>
+mkdir -p .claude/skills/playwright-cli
+
+<span class="comment"># Copy the SKILL.md content below into this file:</span>
+<span class="comment"># .claude/skills/playwright-cli/SKILL.md</span></pre>
+        </div>
+
+        <div class="card" style="margin-top: 1rem;">
+            <h3>SKILL.md Content</h3>
+            <pre style="max-height: 500px; overflow-y: auto;">---
+name: playwright-cli
+description: >
+  Automate browser interactions using Playwright CLI tools.
+  Covers both standard CLI (npx playwright) for test execution,
+  codegen, debugging, reporting, and the new @playwright/cli
+  for AI-agent-friendly persistent browser sessions.
+triggers:
+  - playwright
+  - codegen
+  - browser test
+  - e2e test
+  - record test
+  - login automation
+  - headed mode
+  - trace viewer
+  - html report
+---
+
+# Playwright CLI Skill
+
+## Standard CLI Commands (npx playwright)
+
+### Run Tests
+```bash
+npx playwright test                         # Run all tests
+npx playwright test --headed                # Visible browser
+npx playwright test --debug                 # Debug with Inspector
+npx playwright test --ui                    # Interactive UI mode
+npx playwright test --grep "login"          # Filter by name
+npx playwright test --project=chromium      # Specific browser
+npx playwright test --workers=4             # Parallel execution
+npx playwright test --retries=2             # Retry failures
+npx playwright test --trace on              # Record traces
+npx playwright test --shard=1/3             # Shard for CI
+npx playwright test --list                  # List tests (no run)
+```
+
+### Record Tests (Codegen)
+```bash
+npx playwright codegen [url]                       # Record test
+npx playwright codegen --output tests/my.spec.js   # Save to file
+npx playwright codegen --target python              # Python output
+npx playwright codegen --device "iPhone 13"         # Mobile
+npx playwright codegen --save-storage auth.json     # Save auth
+npx playwright codegen --load-storage auth.json     # Reuse auth
+```
+
+### Reports & Debugging
+```bash
+npx playwright show-report                 # Open HTML report
+npx playwright show-trace trace.zip        # View trace file
+npx playwright install                     # Install browsers
+npx playwright install --with-deps         # + OS dependencies
+npx playwright clear-cache                 # Clear browser cache
+```
+
+## @playwright/cli (AI Agent CLI)
+
+### Setup
+```bash
+npm install -g @playwright/cli@latest
+playwright-cli install
+playwright-cli install --skills
+```
+
+### Interactive Commands
+```bash
+playwright-cli open [url] -s=[session]     # Open page
+playwright-cli snapshot -s=[session]       # A11y snapshot
+playwright-cli screenshot -s=[session]     # Screenshot
+playwright-cli click [ref] -s=[session]    # Click element
+playwright-cli fill [ref] "text" -s=[s]    # Fill input
+playwright-cli type [ref] "text" -s=[s]    # Type text
+playwright-cli press Enter -s=[session]    # Press key
+playwright-cli select [ref] "val" -s=[s]   # Select option
+playwright-cli state-save file.json -s=[s] # Save state
+playwright-cli state-load file.json -s=[s] # Load state
+playwright-cli close -s=[session]          # Close page
+```
+
+## Locator Priority (Codegen)
+1. getByRole('button', { name: '...' })
+2. getByText('...')
+3. getByTestId('...')
+4. getByPlaceholder('...')
+5. CSS selectors (last resort)
+
+## Common Patterns
+
+### Login Automation
+```javascript
+test('login test', async ({ page }) => {
+  await page.goto('https://app.example.com');
+  await page.getByPlaceholder('Email').fill('user@test.com');
+  await page.getByPlaceholder('Password').fill('pass123');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page).toHaveURL(/dashboard/);
+});
+```
+
+### CI/CD Configuration
+```bash
+npx playwright test \
+  --reporter=json,html \
+  --workers=4 \
+  --retries=2 \
+  --trace=on-first-retry \
+  --forbid-only
+```</pre>
+        </div>
+    </section>
+
+</div>
+
+</div><!-- end .main-content -->
+
+<!-- Footer -->
+<footer class="footer" style="margin-left: var(--sidebar-w);">
+    <p>Playwright CLI Tutorial | Created by <a href="https://thetestingacademy.com">TheTestingAcademy</a> | <strong>Pramod Dutta</strong></p>
+    <p style="margin-top: 0.5rem;"><a href="https://github.com/PramodDutta">github.com/PramodDutta</a> | <a href="https://twitter.com/praaborern">@pramodutta</a></p>
+    <p style="margin-top: 0.5rem;">Built for QA students learning Playwright CLI from beginner to advanced</p>
+</footer>
+
+<script>
+    // === Section map for navigation ===
+    const sectionIds = [
+        'overview', 'two-clis', 'installation', 'commands', 'codegen',
+        'mcp-vs-cli', 'ide-integration', 'project1', 'project2', 'project3',
+        'exercises', 'quiz', 'interview', 'skill'
+    ];
+
+    const sectionNames = {
+        'overview': 'Course Overview',
+        'two-clis': 'Two CLIs Explained',
+        'installation': 'Setup & Installation',
+        'commands': 'Commands & Flags',
+        'codegen': 'Codegen Recording',
+        'mcp-vs-cli': 'MCP vs CLI',
+        'ide-integration': 'IDE Integration',
+        'project1': 'Project 1: VWO Login',
+        'project2': 'Project 2: E2E Suite',
+        'project3': 'Project 3: AI Agent + CLI',
+        'exercises': '10 Exercises',
+        'quiz': 'Quiz',
+        'interview': 'Interview Q&A',
+        'skill': 'Skill File'
+    };
+
+    const navLinks = document.querySelectorAll('.sidebar .nav-links a');
+    const bcCurrent = document.getElementById('bcCurrent');
+    const progressPct = document.getElementById('progressPct');
+    const progressFill = document.getElementById('progressFill');
+
+    let currentIdx = 0;
+
+    // === Scroll-spy ===
+    function updateActiveLink() {
+        let foundIdx = 0;
+        sectionIds.forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (el) {
+                const top = el.getBoundingClientRect().top;
+                if (top <= 100) foundIdx = i;
+            }
+        });
+
+        currentIdx = foundIdx;
+        const currentId = sectionIds[foundIdx];
+
+        // Highlight active nav
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentId) {
+                link.classList.add('active');
+                // Scroll sidebar to keep active visible
+                link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+        });
+
+        // Update breadcrumb
+        bcCurrent.textContent = sectionNames[currentId] || 'Course Overview';
+
+        // Update progress
+        const pct = Math.round(((foundIdx + 1) / sectionIds.length) * 100);
+        progressPct.textContent = pct + '%';
+        progressFill.style.width = pct + '%';
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink();
+
+    // === Prev / Next navigation ===
+    function navigatePrev() {
+        if (currentIdx > 0) {
+            const target = document.getElementById(sectionIds[currentIdx - 1]);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function navigateNext() {
+        if (currentIdx < sectionIds.length - 1) {
+            const target = document.getElementById(sectionIds[currentIdx + 1]);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // === Smooth scroll for sidebar links ===
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Close mobile sidebar
+            if (window.innerWidth <= 900) {
+                document.querySelector('.sidebar').classList.remove('open');
+            }
+        });
+    });
+
+    // === Tab functionality ===
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabGroup = this.closest('.section') || this.closest('.container');
+            tabGroup.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            tabGroup.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById(this.dataset.tab).classList.add('active');
+        });
+    });
+
+    // === Quiz functionality ===
+    function checkAnswer(el, isCorrect) {
+        const quizItem = el.closest('.quiz-item');
+        const options = quizItem.querySelectorAll('.quiz-options li');
+        const answer = quizItem.querySelector('.quiz-answer');
+        options.forEach(opt => opt.classList.remove('correct', 'wrong'));
+        if (isCorrect) {
+            el.classList.add('correct');
+        } else {
+            el.classList.add('wrong');
+            options.forEach(opt => {
+                if (opt.onclick.toString().includes('true')) opt.classList.add('correct');
+            });
+        }
+        answer.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
