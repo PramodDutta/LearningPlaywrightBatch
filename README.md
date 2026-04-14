@@ -9,9 +9,9 @@
 
 **A comprehensive learning resource covering JavaScript fundamentals and Playwright testing**
 
-*From zero to automation hero - 17 chapters of JavaScript + 3 specialized Playwright lectures*
+*From zero to automation hero - 17 JavaScript chapters + 3 TypeScript chapters + 3 specialized Playwright lectures*
 
-[Getting Started](#-quick-start) | [Chapters](#-javascript-chapters-1-17) | [Playwright Lectures](#-playwright-lectures) | [Learning Path](#-learning-path)
+[Getting Started](#-quick-start) | [JS Chapters](#-javascript-chapters-1-17) | [TS Chapters](#-typescript-chapters-18-20) | [Playwright Lectures](#-playwright-lectures) | [Learning Path](#-learning-path)
 
 </div>
 
@@ -22,6 +22,7 @@
 This repository is a complete curriculum designed for **SDET (Software Development Engineer in Test)** roles, covering:
 
 - **17 JavaScript Chapters** - From basics to OOP & async programming
+- **3 TypeScript Chapters** - Type safety, interfaces, and enums
 - **3 Playwright Lectures** - CLI mastery, AI Agents, and MCP automation
 - **100+ Code Examples** - Real-world, runnable scripts
 - **Interview Prep** - Coding challenges and Q&A collections
@@ -58,6 +59,12 @@ graph TB
             ch17["Ch 17: Inheritance"]
         end
 
+        subgraph ts["TypeScript (Ch 18-20)"]
+            ch18["Ch 18: TS Fundamentals"]
+            ch19["Ch 19: Interfaces"]
+            ch20["Ch 20: Enums"]
+        end
+
         subgraph pw["Playwright Lectures"]
             cli["CLI Mastery"]
             ai["AI Agents"]
@@ -71,11 +78,13 @@ graph TB
     end
 
     js --> adv
-    adv --> pw
+    adv --> ts
+    ts --> pw
     pw --> extra
 
     style js fill:#e1f5fe,stroke:#01579b
     style adv fill:#fff3e0,stroke:#e65100
+    style ts fill:#e0f7fa,stroke:#00838f
     style pw fill:#f3e5f5,stroke:#7b1fa2
     style extra fill:#e8f5e9,stroke:#2e7d32
 ```
@@ -103,6 +112,9 @@ LearningPlaywrightBatch/
 ├── chapter_15_Async_Await/             # Modern async programming
 ├── chapter_16_OOps/                    # Classes, encapsulation, ES6 modules
 ├── chapter_17_OOPs_Inheritance/        # Inheritance patterns
+├── chapter_18_Typescript/              # TypeScript fundamentals & types
+├── chapter_19_Typescript_Interface/    # TypeScript interfaces
+├── chapter_20_Typescript_ENUM/         # TypeScript enums
 ├── Lecture_Playwright_CLI/             # Playwright CLI commands & tools
 ├── Lecture_Playwright_AI_Agents/       # AI-powered test automation
 ├── Lecture_Playwright_MCP/             # Model Context Protocol integration
@@ -189,11 +201,18 @@ flowchart LR
         P --> Q[Ch 17: Inheritance]
     end
 
+    subgraph TypeScript["TypeScript"]
+        Q --> R[Ch 18: TS Basics]
+        R --> S[Ch 19: Interfaces]
+        S --> T[Ch 20: Enums]
+    end
+
     style Foundation fill:#e3f2fd
     style Control fill:#fff8e1
     style DataStructures fill:#f3e5f5
     style Async fill:#e8f5e9
     style OOP fill:#fce4ec
+    style TypeScript fill:#e0f7fa
 ```
 
 ---
@@ -667,6 +686,145 @@ chapter_17_OOPs_Inheritance/
 
 ---
 
+## TypeScript Chapters (18-20)
+
+### Chapter 18: TypeScript Fundamentals
+**Files:** `175_TS.js` to `183_Filter_Array.ts` (9 files)
+
+```mermaid
+graph TD
+    A[JavaScript] --> B[TypeScript]
+    B --> C{Type System}
+    C --> D[Primitive Types<br/>string, number, boolean]
+    C --> E[Special Types<br/>any, unknown, void, never]
+    C --> F[Type Annotations<br/>variables, functions]
+
+    style B fill:#3178c6,color:#fff
+    style D fill:#e0f7fa
+    style E fill:#fff3e0
+    style F fill:#e8f5e9
+```
+
+**Key Topics:**
+- TypeScript setup and compilation
+- Basic types (`string`, `number`, `boolean`)
+- Special types (`any`, `unknown`, `void`, `never`)
+- Type annotations for variables and functions
+- Type inference
+- Array typing
+
+```typescript
+// Example: Type annotations
+let testName: string = "Login Test";
+let testCount: number = 42;
+let isEnabled: boolean = true;
+
+function runTest(name: string): void {
+    console.log("Running: " + name);
+}
+```
+
+---
+
+### Chapter 19: TypeScript Interfaces
+**Files:** `184_TS_Interface.ts` to `192_Index_TS_Sing.ts` (9 files)
+
+```mermaid
+graph TB
+    subgraph Interface["Interface Definition"]
+        A[Properties] --> B["id: number"]
+        A --> C["name: string"]
+        A --> D["optional?: string"]
+    end
+
+    subgraph Usage["Interface Usage"]
+        E[Object Typing]
+        F[Function Parameters]
+        G[Class Implementation]
+    end
+
+    subgraph RealWorld["QA Use Cases"]
+        H[TestCase Interface]
+        I[BugReport Interface]
+        J[PageObject Interface]
+        K[TestConfig Interface]
+    end
+
+    Interface --> Usage --> RealWorld
+```
+
+**Key Topics:**
+- Interface basics and syntax
+- Optional and required properties
+- Method signatures in interfaces
+- Interfaces for test configuration
+- Real-world QA interfaces (BugReport, TestCase, PageObject)
+- Class implementing interfaces
+- Index signatures
+
+```typescript
+// Example: BugReport interface for QA
+interface BugReport {
+    id: number;
+    title: string;
+    severity: string;
+    stepsToReproduce: string[];
+}
+
+function logBug(bug: BugReport): void {
+    console.log(`BUG-${bug.id} [${bug.severity}] ${bug.title}`);
+}
+```
+
+---
+
+### Chapter 20: TypeScript Enums
+**Files:** `193_ENUM.ts` to `196_ENUM_API_example.ts` (4 files)
+
+```mermaid
+graph LR
+    subgraph Enum["Enum Types"]
+        A[String Enum]
+        B[Numeric Enum]
+    end
+
+    subgraph Examples["QA Examples"]
+        C[TestStatus<br/>Pass, Fail, Skip]
+        D[Browser<br/>Chrome, Firefox, Safari]
+        E[HTTPStatus<br/>200, 404, 500]
+    end
+
+    Enum --> Examples
+
+    style A fill:#e8f5e9
+    style B fill:#fff3e0
+```
+
+**Key Topics:**
+- String enums vs numeric enums
+- Enum in function parameters
+- Switch statements with enums
+- Real-world examples (TestStatus, Browser selection)
+- API response status enums
+
+```typescript
+// Example: Browser selection enum
+enum Browser {
+    Chrome = "chrome",
+    Firefox = "firefox",
+    Safari = "safari",
+    Edge = "edge"
+}
+
+function launchBrowser(browser: Browser): void {
+    console.log("Launching: " + browser);
+}
+
+launchBrowser(Browser.Chrome);
+```
+
+---
+
 ## Playwright Lectures
 
 ### Lecture Overview
@@ -847,7 +1005,11 @@ journey
     section OOP (Week 6)
         Classes: 4: Ch16
         Inheritance: 4: Ch17
-    section Playwright (Week 7-8)
+    section TypeScript (Week 7)
+        TS Fundamentals: 4: Ch18
+        Interfaces: 5: Ch19
+        Enums: 3: Ch20
+    section Playwright (Week 8-9)
         CLI Mastery: 5: CLI
         AI Agents: 5: AI
         MCP Automation: 4: MCP
@@ -859,7 +1021,8 @@ journey
 |-------|----------|-------|
 | **Beginner** | 1-7 | Syntax, control flow, loops |
 | **Intermediate** | 8-12 | Data structures, functions |
-| **Advanced** | 13-17 | Async, OOP patterns |
+| **Advanced JS** | 13-17 | Async, OOP patterns |
+| **TypeScript** | 18-20 | Types, interfaces, enums |
 | **Playwright** | CLI, AI, MCP | Test automation |
 
 ---
