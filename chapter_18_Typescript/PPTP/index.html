@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 18: Typescript - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Chapter 18: Typescript</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-175">175 - TS</a>
+    <a href="#topic-176">176 - TS Helloworld</a>
+    <a href="#topic-176">176 - TS Helloworld</a>
+    <a href="#topic-177">177 - Basic Types</a>
+    <a href="#topic-178">178 - TS Basic Types</a>
+    <a href="#topic-179">179 - Unknown</a>
+    <a href="#topic-180">180 - Fn NoReturn</a>
+    <a href="#topic-181">181 - IQ</a>
+    <a href="#topic-182">182 - IQ</a>
+    <a href="#topic-183">183 - Filter Array</a>
+
+  </nav>
+  <main class="main">
+    <h1>Chapter 18: Typescript</h1>
+    <p class="subtitle">Complete source code reference for Chapter 18: Typescript</p>
+
+    <div class="topic" id="topic-175">
+      <h2>175 - TS</h2>
+      <span class="badge badge-file">175_TS.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 175_TS.js</p>
+      <pre><code>let testName = &quot;Login Test&quot;;
+
+function add(a, b) {
+    return a + b;
+}
+
+let big = 123456789012345678901234567890n;</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-176">
+      <h2>176 - TS Helloworld</h2>
+      <span class="badge badge-file">176_TS_Helloworld.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 176_TS_Helloworld.js</p>
+      <pre><code>&quot;use strict&quot;;
+let testName1 = &quot;Login Test&quot;;
+// function add(a, b) {
+//   return a + b;
+// }
+function add_ts(a, b) {
+    return a + b;
+}
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-176">
+      <h2>176 - TS Helloworld</h2>
+      <span class="badge badge-file">176_TS_Helloworld.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 176_TS_Helloworld.ts</p>
+      <pre><code>let testName1: string = &quot;Login Test&quot;;
+
+// function add(a, b) {
+//   return a + b;
+// }
+
+function add_ts(a: number, b: number): number {
+    return a + b;
+}</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-177">
+      <h2>177 - Basic Types</h2>
+      <span class="badge badge-file">177_Basic_Types.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 177_Basic_Types.ts</p>
+      <pre><code>// Primitive types
+
+let name: string = &quot;John&quot;;
+let age: number = 30;
+let pi: number = 3.14;
+let distance_to_moon: number = 398765434567;
+// let pi: float = 3.14;
+let isActive: boolean = true;
+let nothing: null = null;
+let notDefined: undefined = undefined;
+
+// Arrays
+let numbers: number[] = [1, 2, 3];
+let names: Array&lt;string&gt; = [&quot;John&quot;, &quot;Jane&quot;];
+
+
+// Any (avoid when possible)
+let anything: any = &quot;hello&quot;;
+
+// Unknown (safer than any)
+let unknown: unknown = &quot;hello&quot;;
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-178">
+      <h2>178 - TS Basic Types</h2>
+      <span class="badge badge-file">178_TS_Basic_Types.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 178_TS_Basic_Types.ts</p>
+      <pre><code>let message: string = &quot;Hello, TypeScript!&quot;;
+let count: number = 42;
+let isActive: boolean = true;
+
+console.log(&quot;Message:&quot;, message);
+console.log(&quot;Count:&quot;, count);
+console.log(&quot;Is Active:&quot;, isActive);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-179">
+      <h2>179 - Unknown</h2>
+      <span class="badge badge-file">179_Unknown.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 179_Unknown.ts</p>
+      <pre><code>let unknown: unknown = &quot;hello&quot;;
+
+if (typeof unknown === &quot;string&quot;) {
+    console.log(&quot;Hi&quot;);
+}
+
+let message: string = &quot;Hello&quot;;
+
+let username: string;
+let userId: number;
+
+// Function annotations
+function greet(name: string): string {
+    return `Hello, ${name}!`;
+}
+
+// Arrow function annotations
+const multiply = (a: number, b: number): number =&gt; a * b;
+
+// Object annotations
+let user: { name: string; age: number } = {
+    name: &quot;John&quot;,
+    age: 30
+};</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-180">
+      <h2>180 - Fn NoReturn</h2>
+      <span class="badge badge-file">180_Fn_NoReturn.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 180_Fn_NoReturn.ts</p>
+      <pre><code>// void
+function sayHello(msg: string): void {
+    console.log(msg);
+}
+
+// Function annotations
+function greet(name: string): string {
+    return `Hello, ${name}!`;
+}
+
+// never - function never returns (throws or infinite loop)
+function throwError(message: string): never {
+    throw new Error(message);
+}
+
+function infiniteLoop(): never {
+    while (true) { }
+}</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-181">
+      <h2>181 - IQ</h2>
+      <span class="badge badge-file">181_IQ.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 181_IQ.ts</p>
+      <pre><code>function buildEndpoint(base: string, path: string): string {
+    return base + path;
+}
+
+function isSuccessCode(code: number): boolean {
+    return code &gt;= 200 &amp;&amp; code &lt; 300;
+}
+
+function logTestStep(step: string): void {
+    console.log(&quot;[STEP] &quot; + step);
+}
+
+console.log(buildEndpoint(&quot;https://api.com&quot;, &quot;/users&quot;));
+console.log(&quot;200 is success:&quot;, isSuccessCode(200));
+console.log(&quot;404 is success:&quot;, isSuccessCode(404));
+logTestStep(&quot;Navigate to login page&quot;);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-182">
+      <h2>182 - IQ</h2>
+      <span class="badge badge-file">182_IQ.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 182_IQ.ts</p>
+      <pre><code>let statusCode: number[] = [200, 201, 404, 500];
+let testSuites: string[] = [&quot;Smoke&quot;, &quot;Regression&quot;, &quot;Sanity&quot;];
+
+console.log(&quot;Status codes:&quot;, statusCode);
+console.log(&quot;Suites:&quot;, testSuites);
+
+let testResult: { name: string; status: string; duration: number } = {
+    name: &quot;Login Test&quot;,
+    status: &quot;PASS&quot;,
+    duration: 1200
+};
+
+console.log(testResult.name + &quot; → &quot; + testResult.status + &quot; (&quot; + testResult.duration + &quot;ms)&quot;);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-183">
+      <h2>183 - Filter Array</h2>
+      <span class="badge badge-file">183_Filter_Array.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 183_Filter_Array.ts</p>
+      <pre><code>let responseCodes: number[] = [200, 201, 404, 500, 302, 403];
+
+function getFailedCodes(codes: number[]): number[] {
+    return codes.filter(function (code: number): boolean {
+        return code &gt;= 400;
+    });
+}
+console.log(&quot;All codes:&quot;, responseCodes);
+console.log(&quot;Failed codes:&quot;, getFailedCodes(responseCodes));</code></pre>
+    </div>
+        
+    <div class="footer">PPTP - Playwright & Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13: Callback - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Chapter 13: Callback</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-126">126 - Callback</a>
+    <a href="#topic-127">127 - Sync Callback</a>
+    <a href="#topic-128">128 - Async Callback</a>
+    <a href="#topic-129">129 - Callback hell</a>
+    <a href="#topic-130">130 - Call Ex01 </a>
+    <a href="#topic-131">131 - Callback Return</a>
+    <a href="#topic-132">132 - Py of DON</a>
+
+  </nav>
+  <main class="main">
+    <h1>Chapter 13: Callback</h1>
+    <p class="subtitle">Complete source code reference for Chapter 13: Callback</p>
+
+    <div class="topic" id="topic-126">
+      <h2>126 - Callback</h2>
+      <span class="badge badge-file">126_Callback.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 126_Callback.js</p>
+      <pre><code>// Callback
+
+function placeOrder(item, callback) {
+    console.log(&quot;Placing order&quot;);
+    callback(); // function call
+}
+
+// Define
+function print() {
+    console.log(&quot;Normal Fn - Done with the order&quot;);
+}
+
+// First Way
+// placeOrder(&quot;Burger&quot;, print);
+
+// Sencond Way Anoy
+placeOrder(&quot;Burger&quot;, function () {
+    console.log(&quot;Anoy Fn, I am also a function wihtout name!&quot;)
+});
+
+// Third Way - Arrow Fn
+placeOrder(&quot;Burger&quot;, () =&gt; {
+    console.log(&quot;Arrow Fn, I am also a function wihtout name!&quot;)
+});
+
+test(&#039;has title&#039;, async ({ page }) =&gt; {
+
+});
+
+
+function test(text, callback) {
+    console.log(&quot;Hi, this is test&quot;);
+    callback();
+}
+
+test(&quot;Verify that the login page is working&quot;, async (page) =&gt; {
+    console.log(&quot;Running TC1&quot;)
+});
+
+test(&#039;has title&#039;, async ({ page }) =&gt; {
+
+});</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-127">
+      <h2>127 - Sync Callback</h2>
+      <span class="badge badge-file">127_Sync_Callback.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 127_Sync_Callback.js</p>
+      <pre><code>let testResults = [&quot;PASS&quot;, &quot;FAIL&quot;, &quot;PASS&quot;, &quot;SKIP&quot;];
+
+testResults.forEach(function (result, index) {
+    console.log(&quot;Test&quot; + index + &quot; -&gt; &quot; + result);
+});
+
+// &quot;All done&quot; prints LAST because forEach is synchronous — it finishes all 4 iterations first, then moves on.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-128">
+      <h2>128 - Async Callback</h2>
+      <span class="badge badge-file">128_Async_Callback.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 128_Async_Callback.js</p>
+      <pre><code>console.log(&quot;Test 1: started&quot;);
+
+setTimeout(function () {
+    console.log(&quot;Test 2 : API response received!&quot;)
+}, 2000);
+
+console.log(&quot;Test 3: Moving to next last&quot;);
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-129">
+      <h2>129 - Callback hell</h2>
+      <span class="badge badge-file">129_Callback_hell.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 129_Callback_hell.js</p>
+      <pre><code>// Real QA Scenario: E2E Login Flow app.vwo.com
+
+
+function openBrowser(callback) {
+    console.log(&quot;opening the browser&quot;);
+    setTimeout(function () {
+        console.log(&quot;Step 1 - browser starting...&quot;);
+        callback();
+    }, 500);
+}
+
+function goToLoginPage(callback) {
+    setTimeout(function () {
+        console.log(&quot;Step 2: Login page loaded&quot;);
+        callback();
+    }, 500);
+}
+
+function enterCredentials(callback) {
+    setTimeout(function () {
+        console.log(&quot;Step 3: Credentials entered&quot;);
+        callback();
+    }, 500);
+}
+function clickLogin(callback) {
+    setTimeout(function () {
+        console.log(&quot;Step 4: Login button clicked&quot;);
+        callback();
+    }, 500);
+}
+// THIS IS CALLBACK HELL 👇
+
+openBrowser(function () {
+    goToLoginPage(function () {
+        enterCredentials(function () {
+            clickLogin(function () {
+                console.log(&quot;Test Complete!&quot;)
+            })
+        })
+    })
+})</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-130">
+      <h2>130 - Call Ex01 </h2>
+      <span class="badge badge-file">130_Call_Ex01_.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 130_Call_Ex01_.js</p>
+      <pre><code>function greetTester(name, callback) {
+    console.log(&quot;Welcome, &quot; + name);
+    callback();
+}
+
+greetTester(&quot;Dev&quot;, function () {
+    console.log(&quot;Let&#039;s start testing!&quot;);
+});
+
+// Callback with Parameters
+
+
+function runTest(testName, callback) {
+    let status = &quot;PASS&quot;;
+    callback(testName, status);
+}
+
+runTest(&quot;Login Test&quot;, function (name, result) {
+    console.log(name + &quot; → &quot; + result);
+});
+
+// Sync Callback — forEach
+let bugs = [&quot;UI glitch&quot;, &quot;API timeout&quot;, &quot;Wrong redirect&quot;];
+
+bugs.forEach(function (bug, i) {
+    console.log(&quot;Bug #&quot; + (i + 1) + &quot;: &quot; + bug);
+});
+
+console.log(&quot;Total bugs: &quot; + bugs.length);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-131">
+      <h2>131 - Callback Return</h2>
+      <span class="badge badge-file">131_Callback_Return.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 131_Callback_Return.js</p>
+      <pre><code>function calculate(a, b, operation) {
+    return operation(a, b);
+}
+
+let sum = calculate(10, 5, function (x, y) {
+    return x + y;
+});
+
+console.log(sum);
+
+
+
+console.log(&quot;A: Test suite started&quot;);
+
+setTimeout(function () {
+    console.log(&quot;B: Slow API test finished&quot;);
+}, 1000);
+
+console.log(&quot;C: Fast unit test finished&quot;);
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-132">
+      <h2>132 - Py of DON</h2>
+      <span class="badge badge-file">132_Py_of_DON.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 132_Py_of_DON.js</p>
+      <pre><code>function step1(callback) {
+    console.log(&quot;Open browser&quot;);
+    callback();
+}
+
+function step2(callback) {
+    console.log(&quot;Navigate to page&quot;);
+    callback();
+}
+
+function step3(callback) {
+    console.log(&quot;Click button&quot;);
+    callback();
+}
+
+function step4(callback) {
+    console.log(&quot;Click button&quot;);
+    callback();
+}
+
+step1(function () {
+    step2(function () {
+        step3(function () {
+            step4(function () {
+                console.log(&quot;Done!&quot;);
+            });
+        });
+    });
+});</code></pre>
+    </div>
+        
+    <div class="footer">PPTP - Playwright & Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

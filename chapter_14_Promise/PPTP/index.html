@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14: Promise - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Chapter 14: Promise</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-133">133 - Promise</a>
+    <a href="#topic-134">134 - Promise API</a>
+    <a href="#topic-135">135 - Promise Catch</a>
+    <a href="#topic-136">136 - Promise Finally</a>
+    <a href="#topic-137">137 - REAL Promise</a>
+    <a href="#topic-138">138 - Promise ALL</a>
+    <a href="#topic-139">139 - Promise AllSettled</a>
+    <a href="#topic-140">140 - Promise.race</a>
+    <a href="#topic-141">141 - Promise IQ</a>
+
+  </nav>
+  <main class="main">
+    <h1>Chapter 14: Promise</h1>
+    <p class="subtitle">Complete source code reference for Chapter 14: Promise</p>
+
+    <div class="topic" id="topic-133">
+      <h2>133 - Promise</h2>
+      <span class="badge badge-file">133_Promise.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 133_Promise.js</p>
+      <pre><code>let order = new Promise(function (resolve, reject) {
+    let foodready = true;
+    if (foodready) {
+        resolve(&quot;Pizza is delivered!&quot;);
+    } else {
+        reject(&quot;Order Cancelled!&quot;)
+    }
+})
+
+console.log(order);
+// A Promise is an OBJECT. It wraps a value that will be available later.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-134">
+      <h2>134 - Promise API</h2>
+      <span class="badge badge-file">134_Promise_API.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 134_Promise_API.js</p>
+      <pre><code>let apiCall = new Promise(function (resolve, reject) {
+    resolve({ status: 200, body: &quot;User Data&quot; });
+});
+
+apiCall.then(function (response) {
+    console.log(response);
+    console.log(response.status);
+    console.log(response.body);
+})
+
+// .then() runs ONLY when the promise resolves successfully.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-135">
+      <h2>135 - Promise Catch</h2>
+      <span class="badge badge-file">135_Promise_Catch.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 135_Promise_Catch.js</p>
+      <pre><code>let apiCall = new Promise(function (resolve, reject) {
+    // I will make call...
+    reject(&quot;500 Error&quot;);
+});
+
+apiCall.then(function (data) {
+    console.log(&quot;Data is success!!&quot;)
+}).catch(function (error) {
+    console.log(error)
+});
+
+// .catch() runs ONLY when the promise is rejected.
+//  .then() is completely skipped.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-136">
+      <h2>136 - Promise Finally</h2>
+      <span class="badge badge-file">136_Promise_Finally.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 136_Promise_Finally.js</p>
+      <pre><code>let testRun = new Promise(function (resolve, reject) {
+    reject(&quot;Assertion Failed&quot;);
+
+});
+
+testRun.then(function (data) { // Resolve
+    console.log(data);
+}).catch(function (error) { // Reject
+    console.log(error);
+}).finally(function () { // Always Executed!
+    console.log(&quot;I will be executed anyhow!!&quot;);
+});
+
+// .finally() ALWAYS runs — whether the test passed or failed. Just like afterEach() in Cypress or Playwright.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-137">
+      <h2>137 - REAL Promise</h2>
+      <span class="badge badge-file">137_REAL_Promise.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 137_REAL_Promise.js</p>
+      <pre><code>function openBrowser() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Browser opened!&quot;);
+    });
+}
+
+function goToLogin() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Login page loaded&quot;);
+    });
+}
+
+function enterCredentials() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Credentials entered&quot;);
+    });
+}
+
+function clickLogin() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Logged in successfully&quot;);
+    });
+}
+
+openBrowser()
+    .then(function (msg) {
+        console.log(&quot;Step 1&quot;, msg);
+        return goToLogin();
+    }).then(function (msg) {
+        console.log(&quot;Step 2 :&quot;, msg);
+        return enterCredentials();
+    }).then(function (msg) {
+        console.log(&quot;Step 3 :&quot;, msg);
+        return clickLogin();
+    }).then(function (msg) {
+        console.log(&quot;Step 4 :&quot;, msg);
+    }).catch(function (error) {
+        console.log(&quot;Error:&quot;, error);
+    }).finally(function () {
+        console.log(&quot;Done execution!&quot;);
+    });
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-138">
+      <h2>138 - Promise ALL</h2>
+      <span class="badge badge-file">138_Promise_ALL.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 138_Promise_ALL.js</p>
+      <pre><code>let checkAuth = Promise.resolve(&quot;Auth Ok&quot;);
+let checkDB = Promise.resolve(&quot;DB OK&quot;);
+let checkCache = Promise.resolve(&quot;Cache OK&quot;);
+
+Promise.all([checkAuth, checkDB, checkCache]).then(function (results) {
+    console.log(&quot;All checks:&quot;, results);
+})
+
+Promise.all([
+    Promise.resolve(&quot;OK&quot;),
+    Promise.reject(&quot;DB DOWN&quot;),
+    Promise.resolve(&quot;OK&quot;)
+])
+    .then(function (r) { console.log(r); })
+    .catch(function (err) { console.log(&quot;Failed:&quot;, err); });</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-139">
+      <h2>139 - Promise AllSettled</h2>
+      <span class="badge badge-file">139_Promise_AllSettled.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 139_Promise_AllSettled.js</p>
+      <pre><code>Promise.allSettled([
+    Promise.resolve(&quot;Test A Passed!&quot;),
+    Promise.reject(&quot;Test B failed&quot;),
+    Promise.resolve(&quot;Test C passed&quot;)
+]).then(function (results) {
+    results.forEach(function (r, i) {
+        console.log(&quot;Test &quot; + (i + 1) + &quot;:&quot;, r.status, &quot;-&quot;, r.value || r.reason);
+    });
+})
+// This is like a test report — you want results for ALL tests, not just stop at the first failure.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-140">
+      <h2>140 - Promise.race</h2>
+      <span class="badge badge-file">140_Promise.race.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 140_Promise.race.js</p>
+      <pre><code>let fastServer = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve(&quot;Fast 100ms&quot;)
+    }), 100
+});
+
+let slowServer = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve(&quot;Fast 500ms&quot;)
+    }), 500
+});
+
+Promise.race([fastServer, slowServer]).then(function (winner) {
+    console.log(&quot;Winner:&quot;, winner);
+})</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-141">
+      <h2>141 - Promise IQ</h2>
+      <span class="badge badge-file">141_Promise_IQ.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 141_Promise_IQ.js</p>
+      <pre><code>// let p = new Promise(function (resolve, reject) {
+//     resolve(42);
+// });
+
+// p.then(function (value) {
+//     console.log(&quot;Answer:&quot;, value);
+// });
+
+// let p = new Promise(function (resolve, reject) {
+//     reject(&quot;Something broke&quot;);
+// });
+
+// p.catch(function (err) {
+//     console.log(&quot;Caught:&quot;, err);
+// });
+
+// let p = Promise.resolve(5);
+
+// p.then(function (val) {
+//     return val * 10;
+// }).then(function (val) {
+//     console.log(&quot;Result:&quot;, val);
+// });
+
+// Promise.resolve(1)
+//     .then(function (val) {
+//         console.log(val);
+//         return val + 1;
+//     })
+//     .then(function (val) {
+//         console.log(val);
+//         return val + 1;
+//     })
+//     .then(function (val) {
+//         console.log(val);
+//     });
+
+// Promise.resolve(&quot;start&quot;)
+//     .then(function (val) {
+//         console.log(val);
+//         throw new Error(&quot;Broke at step 2&quot;);
+//     })
+//     .then(function () {
+//         console.log(&quot;This will NOT run&quot;);
+//     })
+//     .catch(function (err) {
+//         console.log(&quot;Caught:&quot;, err.message);
+//     });
+
+
+// Promise.reject(&quot;Test failed&quot;)
+//     .then(function (data) {
+//         console.log(&quot;Data:&quot;, data);
+//     })
+//     .catch(function (err) {
+//         console.log(&quot;Error:&quot;, err);
+//     })
+//     .finally(function () {
+//         console.log(&quot;Cleanup done&quot;);
+//     });
+
+
+// Promise.resolve(&quot;Quick win&quot;).then(function (msg) {
+//     console.log(msg);
+// });
+
+// Promise.reject(&quot;Quick loss&quot;).catch(function (msg) {
+//     console.log(msg);
+// });
+
+
+// let t1 = Promise.resolve(&quot;Login: PASS&quot;);
+// let t2 = Promise.resolve(&quot;Search: PASS&quot;);
+// let t3 = Promise.resolve(&quot;Logout: PASS&quot;);
+
+// Promise.all([t1, t2, t3]).then(function (results) {
+//     console.log(results);
+// });
+
+// let t1 = Promise.resolve(&quot;PASS&quot;);
+// let t2 = Promise.reject(&quot;FAIL&quot;);
+// let t3 = Promise.resolve(&quot;PASS&quot;);
+
+// Promise.all([t1, t2, t3])
+//     .then(function (r) { console.log(&quot;All:&quot;, r); })
+//     .catch(function (err) { console.log(&quot;Stopped:&quot;, err); });
+
+Promise.allSettled([
+    Promise.resolve(&quot;API 200&quot;),
+    Promise.reject(&quot;API 500&quot;),
+    Promise.resolve(&quot;API 201&quot;)
+]).then(function (results) {
+    results.forEach(function (r) {
+        let val = r.status === &quot;fulfilled&quot; ? r.value : r.reason;
+        console.log(r.status + &quot; → &quot; + val);
+    });
+});</code></pre>
+    </div>
+        
+    <div class="footer">PPTP - Playwright & Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11: Objects - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Ch 11: Objects</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-108">108 - Object Basics</a>
+    <a href="#topic-109">109 - Constant Objects</a>
+    <a href="#topic-110">110 - Modify &amp; Delete</a>
+    <a href="#topic-111">111 - Primitives vs Reference</a>
+    <a href="#topic-112">112 - Property Descriptor</a>
+    <a href="#topic-113">113 - Object Methods</a>
+    <a href="#topic-114">114 - Object Destructuring</a>
+    <a href="#topic-115">115 - Spread Operator</a>
+    <a href="#topic-116">116 - Getters &amp; Setters</a>
+    <a href="#topic-117">117 - Object Iteration</a>
+    <a href="#topic-118">118 - Real World Examples</a>
+    <a href="#topic-119">119 - Let vs Const Effects</a>
+  </nav>
+  <main class="main">
+    <h1>Chapter 11: Objects</h1>
+    <p class="subtitle">Object creation, properties, references, manipulation, destructuring, methods, getters/setters, and iteration over objects.</p>
+
+    <div class="topic" id="topic-108">
+      <h2>108 - Object Basics</h2>
+      <span class="badge badge-file">108_Objects.js</span>
+      <span class="badge badge-concept">Key &amp; Value Pairs</span>
+      <p>Objects store data as key-value pairs. Keys can be defined without quotes in standard JS, whereas JSON requires double quotes around keys.</p>
+      <pre><code>// Objects
+// Key and value
+
+let student1 = { name: "Amit", age: 65 };
+let student2 = { name: "Pramod" };
+let student3 = { name: "Pramod", age: 87, phone: 987654320 };
+
+// Key will not be in the doubt quotes
+// below key in doubt is actually JSON
+let JSON_student4 = { "name": "Pramod", "age": 87, "phone": 987654320 };
+
+// -------
+
+let a = { status: "pass" };
+console.log(a.status);
+console.log(a["status"]);
+
+let a1 = { status: 'pass' };
+console.log(a1.status);
+
+// keys are case sensitive.
+let a22 = { status: "pass", Status: "fail" };
+console.log(a22["status"]);
+console.log(a22["Status"]);
+
+let b = a;  // b copies the REFERENCE, not the object
+b.status = "fail";
+console.log(a.status);
+
+// Two separate objects — different memory
+let c = { status: "pass" };
+let d = { status: "pass" };
+console.log(c === d);
+
+const t_json = {
+    "name": "pramod",
+    "age": 10
+};
+console.log(t_json);
+
+const t_js = {
+    name: "pramod",
+    age: 10
+};
+console.log(t_js);</code></pre>
+    </div>
+
+    <div class="topic" id="topic-109">
+      <h2>109 - Constant Objects &amp; Access</h2>
+      <span class="badge badge-file">109_Objects_Consts.js</span>
+      <span class="badge badge-concept">Properties &amp; Constants</span>
+      <p>You can access properties dynamically using bracket notation with variables. A <code class="inline-code">const</code> object's properties can still be modified, but the object itself cannot be reassigned.</p>
+      <pre><code>const user = {
+    name: "John",
+    age: 30,
+    email: "john@example.com"
+};
+
+console.log(user);
+
+// Accessing properties
+console.log(user.name);
+console.log(user["age"]);
+
+// Dynamic property access
+const key = "age";
+console.log(user[key]);
+
+// Adding/modifying properties
+user.city = "NYC";
+user.age = 31;
+
+console.log(user);</code></pre>
+    </div>
+
+    <div class="topic" id="topic-110">
+      <h2>110 - Modify &amp; Delete Properties</h2>
+      <span class="badge badge-file">110_Objects.js</span>
+      <span class="badge badge-concept">Delete</span>
+      <p>Properties of an object can be deleted utilizing the <code class="inline-code">delete</code> operator. Values can easily be updated by simple assignment.</p>
+      <pre><code>let config = {};
+config.browser = "Chrome";
+config.timeout = 3000;
+config.timeout = 5000; // latest
+console.log(config);
+delete config.browser;
+console.log(config);</code></pre>
+    </div>
+
+    <div class="topic" id="topic-111">
+      <h2>111 - Primitive vs Reference Types</h2>
+      <span class="badge badge-file">111_Primitive_Ref.js</span>
+      <span class="badge badge-concept">References</span>
+      <p>Primitives (numbers, strings) are copied by value. Reference types (objects, arrays, functions) are copied by reference. When an object is assigned to another variable, it points to the same memory location.</p>
+      <pre><code>// Primitive data types - call by value
+// Primitive, number, string, boolean, null, undefined
+let a = 10;
+let b = a;
+b = 99;
+console.log(a);
+console.log(b);
+a = 90;
+console.log(a);
+console.log(b);
+
+console.log("-----")
+
+// Objects — copied by REFERENCE , call by ref. 
+// Reference - object, array, function
+let obj1 = { val: 10 };
+let obj2 = obj1;
+obj2.val = 99;
+console.log(obj1.val);</code></pre>
+    </div>
+
+    <div class="topic" id="topic-112">
+      <h2>112 - Object Property Descriptors</h2>
+      <span class="badge badge-file">112_Object_Property_Desciptor.js</span>
+      <span class="badge badge-concept">Descriptors</span>
+      <p>Properties have internal configurations called descriptors regulating if they are writable, enumerable in loops, or if they can be deleted.</p>
+      <pre><code>let obj = { name: "Login" };
+console.log(Object.getOwnPropertyDescriptor(obj, "name"));
+// {
+//   value: "Login",
+//   writable: true,       ← can change the value
+//   enumerable: true,     ← shows in for...in / Object.keys()
+//   configurable: true    ← can delete or redefine
+// }</code></pre>
+    </div>
+
+    <div class="topic" id="topic-113">
+      <h2>113 - Object Methods &amp; 'this'</h2>
+      <span class="badge badge-file">113_Objects.js</span>
+      <span class="badge badge-concept">Methods</span>
+      <p>Objects can contain functions, called methods. By returning <code class="inline-code">this</code> inside methods, we can chain multiple object method calls together continuously.</p>
+      <pre><code>const user = {
+    name: "Pramod",
+    age: 43
+}
+
+const calculator = {
+    value: 0,
+    // name : "Pramod",
+    add(n) {
+        this.value += n;
+        // this.name += "Dutta"
+        return this;
+    },
+    substract(n) {
+        this.value -= n;
+        return this;
+    }
+}
+
+console.log(calculator.add(5).substract(6));
+// { value: 0, add: [Function: add], substract: [Function: substract] }</code></pre>
+    </div>
+
+    <div class="topic" id="topic-114">
+      <h2>114 - Object Destructuring</h2>
+      <span class="badge badge-file">114_Object_Dec.js</span>
+      <span class="badge badge-concept">Destructuring</span>
+      <p>Destructuring allows you to pull properties out of objects and assign them directly to variables. It supports renaming variables, default values, and deep nesting.</p>
+      <pre><code>const user = { name1: "John", age: 30, city: "NYC" };
+
+// Basic destructuring
+const { name1, age } = user;
+console.log(name1);
+console.log(age);
+
+// Rename variables
+const { name1: userName, age: userAge } = user;
+console.log(userName);
+console.log(userAge);
+
+// Default values
+const { country = "USA" } = user;
+console.log(country);
+
+const data = { user: { name: "John", address: { city: "NYC" } } };
+const { user: { address: { city } } } = data;</code></pre>
+    </div>
+
+    <div class="topic" id="topic-115">
+      <h2>115 - Spread Operator</h2>
+      <span class="badge badge-file">115_Spead_Objects.js</span>
+      <span class="badge badge-concept">Spread &amp; Context</span>
+      <p>Combining and copying objects efficiently is done utilizing the spread operator <code class="inline-code">...</code>. Additionally, methods utilizing <code class="inline-code">this</code> maintain reference to the parent object.</p>
+      <pre><code>const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3, d: 4 };
+
+const copy = { ...obj1 };
+console.log(copy);
+const merged = { ...obj1, ...obj2 };
+console.log(merged);
+
+//  this keyword
+const user = {
+    name: "Pramod",
+    saymyName(lastName) {
+        this.name += lastName;
+        return this.name;
+    }
+}
+
+console.log(user.saymyName("Dutta"));</code></pre>
+    </div>
+
+    <div class="topic" id="topic-116">
+      <h2>116 - Getters &amp; Setters</h2>
+      <span class="badge badge-file">116_GETTER_SETTER.js</span>
+      <span class="badge badge-concept">Accessors</span>
+      <p>Accessor properties provide a way to utilize methods transparently over accessing variable properties: getting reads dynamically, and setting runs a proxy-like function.</p>
+      <pre><code>const user = {
+    firstName: "Pramod",
+    lastName: "Dutta",
+    get fullName() {
+        return this.firstName + this.lastName;
+    },
+    set fullName(value) {
+        [this.firstName, this.lastName] = value.split(" ");
+    }
+};
+
+console.log(user.fullName);
+user.fullName = "Amit Sharma";
+console.log(user.fullName);</code></pre>
+    </div>
+
+    <div class="topic" id="topic-117">
+      <h2>117 - Object Iteration</h2>
+      <span class="badge badge-file">117_Objects_methods.js</span>
+      <span class="badge badge-concept">Iteration</span>
+      <p>JavaScript provides utility functions built into Object (<code class="inline-code">keys, values, entries</code>) allowing iterating smoothly, alongside standard <code class="inline-code">for...in</code> approaches.</p>
+      <pre><code>const obj = { a: 1, b: 2, c: 3 };
+
+console.log(Object.keys(obj));
+console.log(Object.values(obj));
+console.log(Object.entries(obj));
+
+const user = { name: "John", age: 30 };
+
+for (const key in user) {
+    console.log(`${key}: ${user[key]}`);
+}
+
+// Object.keys/values/entries
+Object.keys(user).forEach(key =&gt; {
+    console.log(key);
+});
+
+Object.entries(user).forEach(([key, value]) =&gt; {
+    console.log(`${key}: ${value}`);
+});</code></pre>
+    </div>
+
+    <div class="topic" id="topic-118">
+      <h2>118 - Real World Examples</h2>
+      <span class="badge badge-file">118_REAL_Object.js</span>
+      <span class="badge badge-concept">Practices</span>
+      <p>A frequent occurrence of Objects fundamentally is Configuration and Environment properties setup inside API scripts, tests, servers.</p>
+      <pre><code>const ENV = {
+    BASE_URL: "https://staging.myapp.com",
+    TIMEOUT: 5000,
+    RETRIES: 2,
+    BROWSER: "Chrome"
+}
+
+const EXPECTED_RESPONSE = {
+    status: 200,
+    body: {
+        user: { role: "admin", active: true }
+    }
+}
+
+const config = {
+    // Base URLs
+    baseUrl: 'http://localhost:3000',
+    apiBaseUrl: 'http://localhost:3000/api',
+
+    testUser: {
+        username: 'testuser@example.com',
+        password: 'SecurePass123',
+    },
+
+    // Logging
+    logLevel: 'INFO',
+
+    // Retry configuration
+    retryCount: parseInt(process.env.RETRY_COUNT || '3', 10),
+};</code></pre>
+    </div>
+
+    <div class="topic" id="topic-119">
+      <h2>119 - Let vs Const Effects</h2>
+      <span class="badge badge-file">119_Let_const_Objects.js</span>
+      <span class="badge badge-concept">Assignment Rules</span>
+      <p>A variable using <code class="inline-code">const</code> protects the assignment itself (you cannot wipe out the object with a completely new equals <code class="inline-code">=</code> sign) but doesn't freeze mutating internal fields/properties inside.</p>
+      <pre><code>let config1 = { browser: "Chrome", timeout: 3000 };
+// ✅ Modifying properties — ALLOWED
+config1.browser = "Firefox";
+config1.timeout = 5000;
+config1.retries = 2;
+console.log(config1);
+
+config1 = { browser: "Safari" };
+console.log(config1);
+
+// print
+console.log("---- ")
+
+const config = { browser: "Chrome", timeout: 3000 };
+// ✅ Modifying properties — ALLOWED
+config.browser = "Firefox";
+config.timeout = 5000;
+config.retries = 2;
+console.log(config);
+
+// config = { browser: "Safari" };
+console.log(config);</code></pre>
+    </div>
+
+    <div class="footer">PPTP - Playwright &amp; Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

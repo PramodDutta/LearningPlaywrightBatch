@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 19: Typescript Interface - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Chapter 19: Typescript Interface</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-184">184 - TS Interface</a>
+    <a href="#topic-185">185 - TS Interface2</a>
+    <a href="#topic-186">186 - TS Method Sign</a>
+    <a href="#topic-187">187 - TS Interface Hook</a>
+    <a href="#topic-188">188 - TS REAL BUG REPORT</a>
+    <a href="#topic-189">189 - TS TestConfig REAL</a>
+    <a href="#topic-190">190 - REAL PAGE OBJECT Interface</a>
+    <a href="#topic-191">191 - TS Class Interface</a>
+    <a href="#topic-192">192 - Index TS Sing</a>
+
+  </nav>
+  <main class="main">
+    <h1>Chapter 19: Typescript Interface</h1>
+    <p class="subtitle">Complete source code reference for Chapter 19: Typescript Interface</p>
+
+    <div class="topic" id="topic-184">
+      <h2>184 - TS Interface</h2>
+      <span class="badge badge-file">184_TS_Interface.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 184_TS_Interface.ts</p>
+      <pre><code>// Real QA use: In Playwright TypeScript projects, you define interfaces for API response shapes.
+//  If the backend changes a field name from userName to username, 
+// TypeScript catches every place in your tests that uses the old name — instantly.
+
+interface TestCase {
+    id: number;
+    name: string;
+    status: string;
+    duration: number;
+}
+
+let test1: TestCase = {
+    id: 1,
+    name: &quot;Login with valid credentials&quot;,
+    status: &quot;PASS&quot;,
+    duration: 1500
+};
+
+console.log(&quot;TC-&quot; + test1.id + &quot;: &quot; + test1.name + &quot; → &quot; + test1.status);
+
+let test2: TestCase = {
+    id: 2,
+    name: &quot;Login with invalid password&quot;,
+    status: &quot;FAIL&quot;,
+    duration: 3200
+};
+console.log(&quot;TC-&quot; + test2.id + &quot;: &quot; + test2.name + &quot; → &quot; + test2.status);
+
+
+// let test3: TestCase = {
+//     id: 1,
+//     name: &quot;Login with valid credentials&quot;,
+//     status: &quot;PASS&quot;,
+// };
+// console.log(&quot;TC-&quot; + test3.id + &quot;: &quot; + test3.name + &quot; → &quot; + test3.status);
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-185">
+      <h2>185 - TS Interface2</h2>
+      <span class="badge badge-file">185_TS_Interface2.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 185_TS_Interface2.ts</p>
+      <pre><code>// Interface with optional and readonly for API response
+interface APIResponse {
+    readonly statusCode: number;
+    body: string;
+    headers?: object; //Optional
+    responseTime?: number;
+}
+
+// Readonly - can&#039;t modify the readonly
+// ? - optional
+
+let response: APIResponse = {
+    statusCode: 200,
+    body: &#039;{&quot;user&quot;: &quot;admin&quot;}&#039;,
+};
+
+console.log(&quot;Status:&quot;, response.statusCode);
+console.log(&quot;Body:&quot;, response.body);
+console.log(&quot;Headers:&quot;, response.headers);
+
+console.log(&quot; ---------------------------&quot;)
+
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+const point: Point = { x: 10, y: 20 };
+// point.x = 5; This is not possible. 
+
+// ReadonlyArray
+interface Data {
+    readonly items: readonly number[];
+}</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-186">
+      <h2>186 - TS Method Sign</h2>
+      <span class="badge badge-file">186_TS_Method_Sign.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 186_TS_Method_Sign.ts</p>
+      <pre><code>interface Calculator {
+    add(a: number, b: number): number;
+    subtract(a: number, b: number): number;
+    multiply: (a: number, b: number) =&gt; number;  // Alternative syntax
+}
+
+const calc: Calculator = {
+    add: (a, b) =&gt; a + b,
+    subtract: (a, b) =&gt; a - b,
+    multiply: (a, b) =&gt; a * b
+}
+
+console.log(calc);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-187">
+      <h2>187 - TS Interface Hook</h2>
+      <span class="badge badge-file">187_TS_Interface_Hook.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 187_TS_Interface_Hook.ts</p>
+      <pre><code>// Interface for test hook functions
+interface TestHook {
+    (testName: string): void;
+}
+
+let beforeEachHook: TestHook = function (testName: string): void {
+    console.log(&quot;[BEFORE] Setting up: &quot; + testName);
+}
+
+let afterEachHook: TestHook = function (testName: string): void {
+    console.log(&quot;[AFTER] Tearing down: &quot; + testName);
+};
+
+
+beforeEachHook(&quot;Login Test&quot;);
+
+// This is where My Test case will be !!
+
+interface TestCase {
+    id: number;
+    name: string;
+    status: string;
+    duration: number;
+}
+
+let test1: TestCase = {
+    id: 1,
+    name: &quot;Login with valid credentials&quot;,
+    status: &quot;PASS&quot;,
+    duration: 1500
+};
+
+console.log(&quot;TC-&quot; + test1.id + &quot;: &quot; + test1.name + &quot; → &quot; + test1.status);
+
+
+afterEachHook(&quot;Login Test&quot;);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-188">
+      <h2>188 - TS REAL BUG REPORT</h2>
+      <span class="badge badge-file">188_TS_REAL_BUG_REPORT.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 188_TS_REAL_BUG_REPORT.ts</p>
+      <pre><code>interface BugReport {
+    id: number;
+    title: string;
+    severity: string;
+    stepsToReproduce: string[];
+}
+
+
+function logBug(bug: BugReport): void {
+    console.log(&quot;BUG- Report -&gt; &quot; + bug.id + &quot; [&quot; + bug.severity + &quot;] &quot; + bug.title);
+    bug.stepsToReproduce.forEach(function (step: string, i: number) {
+        console.log(&quot;  &quot; + (i + 1) + &quot;. &quot; + step);
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+logBug({
+    id: 1,
+    title: &quot;VWO login is not working. &quot;,
+    severity: &quot;High&quot;,
+    &quot;stepsToReproduce&quot;: [&quot;Ste1 : open the app.vwo.com&quot;, &quot;Step2 :  enter invalid credes&quot;, &quot;step3 : verify the error message&quot;]
+});
+
+logBug({
+    id: 2,
+    title: &quot;VWO login is not working with arabic lang &quot;,
+    severity: &quot;High&quot;,
+    &quot;stepsToReproduce&quot;: [&quot;Ste1 : open the app.vwo.com&quot;, &quot;Step2 :  enter invalid credes&quot;, &quot;step3 : verify the error message&quot;]
+});</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-189">
+      <h2>189 - TS TestConfig REAL</h2>
+      <span class="badge badge-file">189_TS_TestConfig_REAL.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 189_TS_TestConfig_REAL.ts</p>
+      <pre><code>interface TestConfig {
+    browser: string;
+    headless: boolean;
+    baseURL: string;
+    timeout?: number;
+    retries?: number;
+}
+
+let ciConfig: TestConfig = {
+    browser: &quot;Chrome&quot;,
+    headless: true,
+    baseURL: &quot;https://staging.app.com&quot;
+};
+
+let localConfig: TestConfig = {
+    browser: &quot;Firefox&quot;,
+    headless: false,
+    baseURL: &quot;http://localhost:3000&quot;,
+    timeout: 10000,
+    retries: 3
+};
+
+console.log(&quot;CI:&quot;, ciConfig.browser, &quot;| timeout:&quot;, ciConfig.timeout);
+console.log(&quot;Local:&quot;, localConfig.browser, &quot;| timeout:&quot;, localConfig.timeout);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-190">
+      <h2>190 - REAL PAGE OBJECT Interface</h2>
+      <span class="badge badge-file">190_REAL_PAGE_OBJECT_Interface.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 190_REAL_PAGE_OBJECT_Interface.ts</p>
+      <pre><code>interface BasePage {
+    url: string;
+    title: string;
+}
+
+interface LoginPage extends BasePage {
+    usernameSelector: string;
+    passwordSelector: string;
+    loginButtonSelector: string;
+}
+interface FreeTrailPage extends BasePage {
+    usernameSelector: string;
+    submitButtonSelector: string;
+}
+
+
+let loginPage: LoginPage = {
+    url: &quot;/login&quot;,
+    title: &quot;Login Page&quot;,
+    usernameSelector: &quot;#username&quot;,
+    passwordSelector: &quot;#password&quot;,
+    loginButtonSelector: &quot;#login-btn&quot;
+}
+
+let freeTrialPage: FreeTrailPage = {
+    url: &quot;/free-trial&quot;,
+    title: &quot;Free Page&quot;,
+    usernameSelector: &quot;#username&quot;,
+    submitButtonSelector: &quot;#submit&quot;,
+}
+
+console.log(&quot;URL:&quot;, loginPage.url);
+console.log(&quot;Title:&quot;, loginPage.title);
+console.log(&quot;Username field:&quot;, loginPage.usernameSelector);
+
+console.log(&quot; ------- &quot;);
+
+
+console.log(&quot;URL:&quot;, freeTrialPage.url);
+console.log(&quot;Title:&quot;, freeTrialPage.title);
+console.log(&quot;Username field:&quot;, freeTrialPage.usernameSelector);</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-191">
+      <h2>191 - TS Class Interface</h2>
+      <span class="badge badge-file">191_TS_Class_Interface.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 191_TS_Class_Interface.ts</p>
+      <pre><code>interface Executable {
+    name: string;
+    run(): void;
+    getStatus(): string;
+}
+
+class TestCase implements Executable {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    run(): void {
+        console.log(&quot;[RUN] &quot; + this.name);
+    }
+    getStatus(): string {
+        return &quot;PASS&quot;;
+    }
+}
+
+let tc: Executable = new TestCase(&quot;Verify login redirect&quot;);
+tc.run();
+console.log(&quot;Call:&quot;, tc.getStatus());</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-192">
+      <h2>192 - Index TS Sing</h2>
+      <span class="badge badge-file">192_Index_TS_Sing.ts</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 192_Index_TS_Sing.ts</p>
+      <pre><code>// String index
+
+interface StringDictionary {
+    [key: string]: string;
+}
+
+const dict: StringDictionary = {
+    hello: &quot;world&quot;,
+    foo: &quot;bar&quot;
+};</code></pre>
+    </div>
+        
+    <div class="footer">PPTP - Playwright & Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
