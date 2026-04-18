@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12: Multi Dimension Arrays - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Ch 12: MD Arrays</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-120">120 - Arrays Basics</a>
+    <a href="#topic-121">121 - Traversal &amp; Access</a>
+    <a href="#topic-122">122 - Matrix Functions</a>
+    <a href="#topic-123">123 - Right Angle Pattern</a>
+    <a href="#topic-124">124 - Inverse Right Angle</a>
+    <a href="#topic-125">125 - Pyramid Pattern</a>
+  </nav>
+  <main class="main">
+    <h1>Chapter 12: Multi Dimension Arrays</h1>
+    <p class="subtitle">Understanding 2D arrays, matrix properties, nested loop traversals, and common patterns.</p>
+
+    <div class="topic" id="topic-120">
+      <h2>120 - Multi Dimension Array Basics</h2>
+      <span class="badge badge-file">120_MD_Array.js</span>
+      <span class="badge badge-concept">Grids</span>
+      <p>A multi-dimensional array comprises arrays within an array, generally envisioned as a grid with rows and columns.</p>
+      <pre><code>// 1D array,list - duplicate element
+let results = ["pass", "fail", "pass"];
+
+// 2D — array of arrays (like a table/grid)
+let matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+let matrix_2D = [
+    [1, 2, 3, 4],
+];
+console.log(" ---- ")
+let grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+for (let i = 0; i &lt; 3; i++) {
+    for (let j = 0; j &lt; 3; j++) {
+        console.log(grid[i][j]);
+    }
+}</code></pre>
+    </div>
+
+    <div class="topic" id="topic-121">
+      <h2>121 - Matrix Traversal &amp; Iteration Options</h2>
+      <span class="badge badge-file">121_MD_Array_Part2.js</span>
+      <span class="badge badge-concept">Iteration</span>
+      <p>Data in an MD array is targeted via double indexes (<code class="inline-code">grid[row][col]</code>). It can be reliably traversed via traditional nested loops, <code class="inline-code">for...of</code> loops, or nested <code class="inline-code">forEach()</code> procedures.</p>
+      <pre><code>const test = require("node:test");
+
+let grid = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+];
+
+// 3x3
+
+// Access — [row][col]
+console.log(grid[0][0])
+// grid[2][1]; -&gt; 80
+// grid[1][2]; -&gt; 60
+
+
+grid[0][0] = 99;
+console.log(grid[0][0]);
+console.log(grid);
+
+console.log(grid.length);   // 3 — number of rows
+console.log(grid[0].length);  // 3 — number of cols in row 0
+
+console.log(grid[grid.length - 1][grid[0].length - 1]); // Last element 
+// grid[2][2];
+
+let testMatrix = [
+    ["login", "pass", 200],
+    ["checkout", "fail", 404],
+    ["search", "pass", 180]
+];
+
+for (let i = 0; i &lt; testMatrix.length; i++) {
+
+    for (let j = 0; j &lt; testMatrix[i].length; j++) {
+        console.log(testMatrix[i][j] + " ")
+    }
+    console.log(" ");
+
+}
+
+console.log(" --------- ");
+
+for (let row of testMatrix) {
+    for (let cell of row) {
+        process.stdout.write(cell + " ")
+    }
+    console.log();
+}
+console.log(" --------- ");
+
+
+// forEach
+testMatrix.forEach(row =&gt; {
+    row.forEach(cell =&gt; process.stdout.write(cell + " "));
+    console.log();
+});
+
+console.log(" --------- ");</code></pre>
+    </div>
+
+    <div class="topic" id="topic-122">
+      <h2>122 - Real-to-Life Logic and Matrix Functions</h2>
+      <span class="badge badge-file">122_MD_Array_Funtions.js</span>
+      <span class="badge badge-concept">Functions</span>
+      <p>We often use chaining with Array Methods like <code class="inline-code">map</code> and <code class="inline-code">reduce</code> over each sub-array or selectively verify matrices via iterative testing checks.</p>
+      <pre><code>// 2D Arrays — Common Operations
+
+let scores = [
+    [85, 90, 78],   // student 0 , 253
+    [60, 45, 70],   // student 1,  175
+    [95, 88, 92]    // student 2, 275
+];
+
+let rowSums = scores.map(row =&gt; row.reduce((a, b) =&gt; a + b, 0));
+console.log(rowSums);
+
+
+let suiteResults = [
+    ["login-pass", "register-pass", "logout-pass"],  // Auth suite
+    ["search-pass", "filter-fail", "sort-pass"],  // Search suite
+    ["checkout-fail", "payment-fail", "confirm-pass"]   // Payment suite
+];
+
+for (let i = 0; i &lt; suiteResults.length; i++) {
+    for (let j = 0; j &lt; suiteResults[i].length; j++) {
+        if (suiteResults[i][j].includes("fail")) {
+            console.log(suiteResults[i][j]);
+        }
+    }
+}
+
+let execTimes = [
+    [120, 340, 89, 450],  // dev
+    [200, 410, 100, 520],  // staging
+    [180, 390, 95, 490]   // prod
+];
+
+// 3x4</code></pre>
+    </div>
+
+    <div class="topic" id="topic-123">
+      <h2>123 - Pattern: Right Hand Triangle</h2>
+      <span class="badge badge-file">123_MD_Pattern_RIGHT.js</span>
+      <span class="badge badge-concept">Patterns</span>
+      <p>Common matrix logic exercises construct patterns via bounded variable iteration loops mapped to dimensional length indices.</p>
+      <pre><code>// n = 3a
+// *
+// * *
+// * * *
+
+let n = 3;
+for (let i = 1; i &lt;= n; i++) {
+    let row = " ";
+    for (let j = 1; j &lt;= i; j++) {
+        //row = row + "* ";
+        row += "* ";
+    }
+    console.log(row.trim());
+}</code></pre>
+    </div>
+
+    <div class="topic" id="topic-124">
+      <h2>124 - Pattern: Inverted Left Hand Triangle</h2>
+      <span class="badge badge-file">124_MD_Left_hand.js</span>
+      <span class="badge badge-concept">Patterns</span>
+      <p>Looping in reverse sequentially enables structuring reversed triangular matrices logic.</p>
+      <pre><code>// *****
+// ****
+// ***
+// **
+// *
+
+let n = 5;
+for (let i = n; i &gt;= 1; i--) {
+    let row = "";
+    for (let j = 1; j &lt;= i; j++) {
+        row += "*";
+    }
+    console.log(row);
+}</code></pre>
+    </div>
+
+    <div class="topic" id="topic-125">
+      <h2>125 - Pattern: Pyramid Extrusion</h2>
+      <span class="badge badge-file">125_Pyramid_Pattern.js</span>
+      <span class="badge badge-concept">Patterns</span>
+      <p>By blending spacer increment calculations combined with star mapping constraints, complex pyramidal structures are plotted progressively.</p>
+      <pre><code>//   *
+//  ***
+// ***** 
+
+let n = 3;
+for (let i = 1; i &lt;= n; i++) {
+
+    let row = "";
+    for (let j = 1; j &lt;= n - i; j++) {
+        row += " ";
+    }
+    for (let j = 1; j &lt;= 2 * i - 1; j++) {
+        row += "*";
+    }
+    console.log(row);
+
+}</code></pre>
+    </div>
+
+    <div class="footer">PPTP - Playwright &amp; Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

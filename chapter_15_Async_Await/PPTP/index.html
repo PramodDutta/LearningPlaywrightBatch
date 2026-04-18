@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 15: Async Await - PPTP Tutorial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; min-height: 100vh; background: #f5f5f5; }
+    .sidebar { width: 280px; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; padding: 20px 0; z-index: 10; }
+    .sidebar h2 { padding: 10px 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px; }
+    .sidebar a { display: block; padding: 10px 20px; color: #b0b0c0; text-decoration: none; font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .sidebar a:hover, .sidebar a.active { background: #16213e; color: #64ffda; border-left-color: #64ffda; }
+    .sidebar .section-label { padding: 15px 20px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .main { margin-left: 280px; padding: 40px; flex: 1; max-width: 900px; }
+    .main h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 10px; }
+    .main .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .topic { background: #fff; border-radius: 8px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .topic h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #64ffda; }
+    .topic h3 { font-size: 18px; color: #333; margin: 20px 0 10px; }
+    .topic p { line-height: 1.8; color: #444; margin-bottom: 15px; }
+    .topic ul, .topic ol { margin: 10px 0 15px 20px; line-height: 1.8; color: #444; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+    code { font-family: 'Fira Code', 'Consolas', monospace; }
+    .inline-code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #d63384; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 5px; }
+    .badge-file { background: #e3f2fd; color: #1565c0; }
+    .badge-concept { background: #f3e5f5; color: #7b1fa2; }
+    .footer { text-align: center; padding: 30px; color: #999; font-size: 13px; }
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { margin-left: 0; }
+      body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Chapter 15: Async Await</h2>
+    <div class="section-label">Topics</div>
+    <a href="#topic-142">142 - Async Await</a>
+    <a href="#topic-143">143 - Coverted Code</a>
+    <a href="#topic-144">144 - AA</a>
+    <a href="#topic-145">145 - Try Catch</a>
+    <a href="#topic-146">146 - Sequential Execution</a>
+    <a href="#topic-147">147 - Parrallel Execution</a>
+    <a href="#topic-148">148 - IQ</a>
+    <a href="#topic-149">149 - API REAL FLAKY</a>
+
+  </nav>
+  <main class="main">
+    <h1>Chapter 15: Async Await</h1>
+    <p class="subtitle">Complete source code reference for Chapter 15: Async Await</p>
+
+    <div class="topic" id="topic-142">
+      <h2>142 - Async Await</h2>
+      <span class="badge badge-file">142_Async_Await.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 142_Async_Await.js</p>
+      <pre><code>getToken()
+    .then(function (token) {
+        return getUser(token);
+    })
+    .then(function (user) {
+        console.log(user);
+    });
+
+
+async function run() {
+    let token = await getToken();
+    let user = await getUser();
+}</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-143">
+      <h2>143 - Coverted Code</h2>
+      <span class="badge badge-file">143_Coverted_Code.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 143_Coverted_Code.js</p>
+      <pre><code>function openBrowser() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Browser opened!&quot;);
+    });
+}
+
+function goToLogin() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Login page loaded&quot;);
+    });
+}
+
+function enterCredentials() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Credentials entered&quot;);
+    });
+}
+
+function clickLogin() {
+    return new Promise(function (resolve) {
+        resolve(&quot;Logged in successfully&quot;);
+    });
+}
+
+// openBrowser()
+//     .then(function (msg) {
+//         console.log(&quot;Step 1&quot;, msg);
+//         return goToLogin();
+//     }).then(function (msg) {
+//         console.log(&quot;Step 2 :&quot;, msg);
+//         return enterCredentials();
+//     }).then(function (msg) {
+//         console.log(&quot;Step 3 :&quot;, msg);
+//         return clickLogin();
+//     }).then(function (msg) {
+//         console.log(&quot;Step 4 :&quot;, msg);
+//     }).catch(function (error) {
+//         console.log(&quot;Error:&quot;, error);
+//     }).finally(function () {
+//         console.log(&quot;Done execution!&quot;);
+//     });
+
+
+async function runLoginFlow() {
+    let msg1 = await openBrowser();
+    console.log(&quot;Step 1:&quot;, msg1);
+
+    let msg2 = await goToLogin();
+    console.log(&quot;Step 2:&quot;, msg2);
+
+    let msg3 = await enterCredentials();
+    console.log(&quot;Step 3:&quot;, msg3);
+
+    let msg4 = await clickLogin();
+    console.log(&quot;Step 4:&quot;, msg4);
+
+}
+
+runLoginFlow();</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-144">
+      <h2>144 - AA</h2>
+      <span class="badge badge-file">144_AA.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 144_AA.js</p>
+      <pre><code>// Basic Async/Await
+
+async function getTestResults() {
+    return &quot;Pass&quot;;
+}
+
+// async function ALWAYS returns a Promise
+getTestResults().then(function (result) {
+    console.log(result);
+});
+
+
+async function runTest() {
+    let result = await Promise.resolve(&quot;Login test passed&quot;);
+    console.log(result);
+
+    let result2 = await Promise.resolve(&quot;Dashboard test passed&quot;);
+    console.log(result2);
+}
+
+runTest();</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-145">
+      <h2>145 - Try Catch</h2>
+      <span class="badge badge-file">145_Try_Catch.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 145_Try_Catch.js</p>
+      <pre><code>// Error Handling — try/catch
+
+
+// With Promises you use .catch().
+//  With async/await you use try/catch — exactly like regular JavaScript error handling.
+
+async function testAPI() {
+    try {
+        let result = await Promise.reject(&quot;503 Service Unavailable&quot;);
+        console.log(&#039;Result&#039;, result);
+    } catch (error) {
+        console.log(&#039;Error&#039;, error);
+    } finally {
+        console.log(&quot;Clean up!!&quot;)
+    }
+}
+
+testAPI();
+
+// try/catch/finally maps directly to .then()/.catch()/.finally() — same logic, cleaner syntax.
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-146">
+      <h2>146 - Sequential Execution</h2>
+      <span class="badge badge-file">146_Sequential_Execution.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 146_Sequential_Execution.js</p>
+      <pre><code>// When Step 2 depends on Step 1&#039;s result, you MUST run them sequentially.
+
+// Ste1 - Step 2
+
+
+function apiCall(name) {
+    return new Promise(function (resolve) {
+
+        setTimeout(function () {
+            resolve(name, &quot; 200 Ok!&quot;);
+        }, 1000)
+
+    });
+}
+
+
+async function sequenttialTest() {
+    console.log(&quot;Starting of the Test&quot;);
+    let start = Date.now();
+
+    let r1 = await apiCall(&quot;Login&quot;);
+    console.log(r1);
+
+    let r2 = await apiCall(&quot;Dashboard&quot;);
+    console.log(r2);
+
+    let r3 = await apiCall(&quot;Report&quot;);
+    console.log(r3);
+
+    console.log(&quot;Time: ~&quot; + (Date.now() - start) + &quot;ms&quot;);
+
+}
+
+sequenttialTest();
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-147">
+      <h2>147 - Parrallel Execution</h2>
+      <span class="badge badge-file">147_Parrallel_Execution.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 147_Parrallel_Execution.js</p>
+      <pre><code>// When Step 2 depends on Step 1&#039;s result, you MUST run them sequentially.
+
+// Ste1 - Step 2
+
+
+function apiCall(name) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve(name + &quot;: 200 OK&quot;);
+        }, 1000);
+    });
+}
+
+
+async function sequenttialTest() {
+    console.log(&quot;Starting of the Test&quot;);
+    let start = Date.now();
+
+    let [r1, r2, r3] = await Promise.all([
+        apiCall(&quot;Auth Service&quot;),
+        apiCall(&quot;User Service&quot;),
+        apiCall(&quot;Payment Service&quot;)
+    ])
+
+    console.log(r1);
+    console.log(r2);
+    console.log(r3);
+
+    console.log(&quot;Time: ~&quot; + (Date.now() - start) + &quot;ms&quot;);
+
+}
+
+sequenttialTest();
+
+</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-148">
+      <h2>148 - IQ</h2>
+      <span class="badge badge-file">148_IQ.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 148_IQ.js</p>
+      <pre><code>// async function sayHello() {
+//     return &quot;Hello, QA!&quot;;
+// }
+
+// sayHello().then(function (msg) {
+//     console.log(msg);
+// });
+
+// async function getStatus() {
+//     let status = await Promise.resolve(200);
+//     console.log(&quot;Status code:&quot;, status);
+// }
+
+// getStatus();
+
+
+// async function testFlow() {
+//     let step1 = await Promise.resolve(&quot;Opened browser&quot;);
+//     console.log(step1);
+
+//     let step2 = await Promise.resolve(&quot;Clicked login&quot;);
+//     console.log(step2);
+
+//     let step3 = await Promise.resolve(&quot;Verified dashboard&quot;);
+//     console.log(step3);
+// }
+
+// testFlow();
+
+
+
+// async function riskyTest() {
+//     try {
+//         let data = await Promise.reject(&quot;Element not found&quot;);
+//         console.log(data);
+//     } catch (err) {
+//         console.log(&quot;Test failed:&quot;, err);
+//     }
+// }
+
+// riskyTest();
+
+
+// async function apiTest() {
+//     try {
+//         let response = await Promise.resolve({ status: 201, body: &quot;Created&quot; });
+//         console.log(&quot;Status:&quot;, response.status);
+//         console.log(&quot;Body:&quot;, response.body);
+//     } catch (err) {
+//         console.log(&quot;Error:&quot;, err);
+//     } finally {
+//         console.log(&quot;Test complete&quot;);
+//     }
+// }
+
+// apiTest();
+
+// console.log(&quot;A&quot;);
+
+// async function test() {
+//     console.log(&quot;B&quot;);
+//     await Promise.resolve();
+//     console.log(&quot;C&quot;);
+// }
+
+// test();
+// console.log(&quot;D&quot;);
+
+
+// async function runAll() {
+//     let [a, b, c] = await Promise.all([
+//         Promise.resolve(&quot;Login: OK&quot;),
+//         Promise.resolve(&quot;Cart: OK&quot;),
+//         Promise.resolve(&quot;Checkout: OK&quot;)
+//     ]);
+
+//     console.log(a);
+//     console.log(b);
+//     console.log(c);
+// }
+
+// runAll();
+
+// async function healthCheck() {
+//     let results = await Promise.allSettled([
+//         Promise.resolve(&quot;Auth: UP&quot;),
+//         Promise.reject(&quot;DB: DOWN&quot;),
+//         Promise.resolve(&quot;Cache: UP&quot;)
+//     ]);
+
+//     results.forEach(function (r) {
+//         let status = r.status === &quot;fulfilled&quot; ? &quot;✅&quot; : &quot;❌&quot;;
+//         let msg = r.value || r.reason;
+//         console.log(status + &quot; &quot; + msg);
+//     });
+// }
+
+// healthCheck();
+
+
+// async function checkEndpoints() {
+//     let endpoints = [&quot;/login&quot;, &quot;/users&quot;, &quot;/orders&quot;];
+
+//     for (let i = 0; i &lt; endpoints.length; i++) {
+//         let result = await Promise.resolve(endpoints[i] + &quot; → 200&quot;);
+//         console.log(result);
+//     }
+
+//     console.log(&quot;All checks done&quot;);
+// }
+
+// checkEndpoints();
+
+// Async IIFE(Immediately Invoked)
+
+
+// (async function () {
+//     let msg = await Promise.resolve(&quot;Quick async test&quot;);
+//     console.log(msg);
+// })();
+
+// console.log(&quot;Outside&quot;);
+
+
+async function add(a, b) {
+    return a + b;
+}
+
+async function main() {
+    let result = await add(10, 20);
+    console.log(&quot;Sum:&quot;, result);
+
+    let result2 = await add(result, 30);
+    console.log(&quot;Total:&quot;, result2);
+}
+
+main();</code></pre>
+    </div>
+        
+    <div class="topic" id="topic-149">
+      <h2>149 - API REAL FLAKY</h2>
+      <span class="badge badge-file">149_API_REAL_FLAKY.js</span>
+      <span class="badge badge-concept">Code View</span>
+      <p>Source code reference for 149_API_REAL_FLAKY.js</p>
+      <pre><code>// Flaky Test -&gt;  100 TC, 3 Failed, I want to rerun them 3, these are flaky, it sometimes pass, failed...
+//3  I want to re run
+
+// Retry Pattern with Async/Await - REAL QA
+let attempt = 0;
+
+function flakyAPI() {
+    attempt++;
+    if (attempt &lt; 3) {
+        return Promise.reject(&quot;Attempt &quot; + attempt + &quot;: failed&quot;);
+    }
+    return Promise.resolve(&quot;Attempt &quot; + attempt + &quot;: success!&quot;);
+}
+
+
+
+async function retryTesting(maxRetries) {
+    for (let i = 1; i &lt;= maxRetries; i++) {
+        try {
+            let result = await flakyAPI();
+            console.log(&#039;Pass Promise!, I will exit also&#039;, result);
+            // break; // you will never get out of the loop due to this
+        }
+        catch (error) {
+            console.log(&#039;Fail Promise!&#039;, error);
+        }
+    }
+
+}
+
+retryTesting(5);
+
+</code></pre>
+    </div>
+        
+    <div class="footer">PPTP - Playwright & Programming Tutorial Portal | TheTestingAcademy</div>
+  </main>
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.topic');
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
